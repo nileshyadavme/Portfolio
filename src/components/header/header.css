@@ -1,7 +1,7 @@
 .header{
     width: 100%;
     position: fixed;
-    top: 0;
+    top: 1rem;
     left: 0;
     z-index: var(--z-fixed);
     background-color: var(--body-color);
