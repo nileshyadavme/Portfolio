@@ -4,13 +4,14 @@ export const Data = () => {
   return (
     <div className="home__data">
         <h1 className='home__title'>Nilesh Yadav
-          <svg
+        <div   class="home__hand">
+        <svg
                   width="36"
                   height="36"
                   viewBox="0 0 48 48"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  class="home__hand"
+                
                 >
                   <path
                     d="M25.4995 32.0305L31.3495 33.1555L36.1495 8.48051C36.4495 6.83051 35.3995 5.18051 33.8245 4.88051C32.1745 4.58051 30.5995 5.70551 30.2995 7.35551L25.4995 32.0305Z"
@@ -53,6 +54,8 @@ export const Data = () => {
                     fill="#EBA352"
                   ></path>
           </svg>
+        </div>
+        
         </h1>
         <h3 className="home__subtitle">Machine Learning Engineer</h3>
         <p className="home__description"> I am a sophomore at Galgotias university, studying computer science engineering. I am a machine learning enthusiast.</p>
