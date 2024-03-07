@@ -7,10 +7,12 @@
 }
 
 .home__img {
-    background: url(https://github.com/nileshyadavme/Portfolio/blob/cb773f2db4aa53cbaa637de8e5da23146d18aa5f/assets/profile.jpg);
+    background: url(https://github.com/nileshyadavme/Portfolio/blob/main/assets/profile.jpg?raw=true);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    order: 1;
+    filter:brightness(70%) contrast(150%) saturate(0%) brightness(150%);
     box-shadow: inset 0 0 0 9px rgb(225,225 ,225 /30%);
     width: 300px;
     height: 300px;
