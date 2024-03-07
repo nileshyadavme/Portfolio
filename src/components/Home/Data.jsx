@@ -5,7 +5,7 @@ export const Data = () => {
     <div className="home__data">
         <h1 className='home__title'>Nilesh Yadav
         <div   class="home__hand">
-        <svg
+          <svg
                   width="36"
                   height="36"
                   viewBox="0 0 48 48"
