@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 
 export class About extends PureComponent {
   render() {
     return (
-      <div>About</div>
+        <section className="about section" id="about">
+        <h2 className="section__title">About me</h2>
+        <spane className="section__subtitle">My Introduction</spane>
+        <div className="about__container container grid">
+
+        </div>
+      </section>
     )
   }
 }
