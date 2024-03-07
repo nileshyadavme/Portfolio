@@ -198,6 +198,22 @@
         padding: 0px;
     }
   }
+    /* For between L and M */
+    @media screen and (max-width: 850px) {
+        .home__subtitle
+        {
+            padding: 0px;
+            padding-left: 70px;
+        }
+    }
+      /* For between L and M */
+    @media screen and (max-width: 991px) {
+        .home__subtitle
+        {
+            padding: 0px;
+            padding-left: 70px;
+        }
+    }
 
   /* For medium devices */
   @media screen and (max-width: 768px) {
