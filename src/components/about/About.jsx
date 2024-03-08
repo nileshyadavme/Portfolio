@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-
+import "./about.css";
 export class About extends PureComponent {
   render() {
     return (
