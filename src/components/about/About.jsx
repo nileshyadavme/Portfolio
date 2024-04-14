@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import "./about.css";
 import ABOUTImg from "../../assets/profile.jpg";
-import CV from "../../assets/cv.pdf";
+import CV from "../../assets/Nilesh-CV.docx";
 import Info from './Info';
 export class About extends PureComponent {
   render() {
@@ -18,7 +18,6 @@ export class About extends PureComponent {
             </p>
 
             <a download="" href={CV} className="button button--flex">Download CV
-              
               <svg
                 class="button__icon"
                 xmlns="http://www.w3.org/2000/svg"
