@@ -31,7 +31,7 @@ export default function AboutPage() {
                     {/* Text Content */}
                     <div className="space-y-6">
                         <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
-                            About Me
+                            Thing about me
                         </h1>
                         <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">
                             <p>

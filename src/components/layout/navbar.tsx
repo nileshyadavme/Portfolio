@@ -44,7 +44,7 @@ export function Navbar() {
             <div className="container mx-auto flex h-14 max-w-screen-2xl items-center justify-between px-4 md:px-8">
                 {/* Logo */}
                 <Link href="/" className="mr-6 flex items-center space-x-2 z-50 bg-transparent">
-                    <span className="font-mono font-bold">~/portfolio</span>
+                    <span className="font-mono font-bold">~/nilesh.</span>
                 </Link>
 
                 {/* Desktop Nav */}

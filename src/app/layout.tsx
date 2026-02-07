@@ -16,7 +16,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DevPortfolio",
+  title: "Nilesh🐉",
   description: "Minimalist portfolio for a software engineer",
 };
 

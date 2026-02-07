@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { MathAnimation } from "@/components/ui/math-animation";
@@ -23,13 +23,13 @@ export function Hero() {
                     </div>
 
                     <h1 className="text-4xl font-bold tracking-tight sm:text-6xl md:text-7xl">
-                        Start with the logic. <br />
-                        <span className="text-muted-foreground">End with the design.</span>
+                        Nilesh Yadav<br />
                     </h1>
 
                     <p className="max-w-xl mx-auto md:mx-0 text-lg text-muted-foreground sm:text-xl">
-                        I'm a software engineer who builds elegant, efficient, and scalable systems.
-                        Blending mathematical precision with intuitive user experiences.
+                        /nɪˈleɪʃ ˈjɑːdʌv/ <br />
+                        A full-stack developer and product builder with deep experience across engineering, product strategy, and user-centric design.<br />
+                        A polymath who bridges technical architecture with business outcomes to create impactful, scalable solutions.
                     </p>
 
                     <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
@@ -58,7 +58,13 @@ export function Hero() {
                     {/* Minimalist Image Placeholder */}
                     <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-muted to-muted/20 border border-border/50 backdrop-blur-sm overflow-hidden shadow-2xl">
                         <div className="absolute inset-0 flex items-center justify-center text-muted-foreground/30 font-mono text-sm">
-                            [Your Image]
+                            <Image
+                                src="/gallery/main.jpg"
+                                alt="Main Page Preview"
+                                fill
+                                className="object-cover"
+                                priority
+                            />
                         </div>
                     </div>
 

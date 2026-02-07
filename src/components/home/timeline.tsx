@@ -12,8 +12,7 @@ export function Timeline() {
                     <div className="space-y-4 max-w-2xl text-center md:text-left">
                         <h2 className="text-3xl font-bold tracking-tight md:text-4xl">My Journey</h2>
                         <p className="text-muted-foreground text-lg leading-relaxed">
-                            From my first "Hello World" to architecting distributed systems, my career has been a continuous learning curve.
-                            Explore my professional experience, education, and the key milestones that define my path.
+                            From not knowing how to code to becoming a software engineer, my journey has been a continuous learning curve.
                         </p>
                     </div>
 
