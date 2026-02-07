@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Github } from "lucide-react";
-import { cn } from "@/lib/utils";
 import type { Project } from "@/lib/data";
 
 interface ProjectCardProps {
@@ -19,6 +19,17 @@ export function ProjectCard({ project }: ProjectCardProps) {
             transition={{ duration: 0.3 }}
             className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card p-6 transition-all hover:shadow-lg dark:hover:shadow-primary/5"
         >
+            {project.image && (
+                <div className="relative mb-4 h-48 w-full overflow-hidden rounded-lg">
+                    <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                </div>
+            )}
+
             <div className="flex items-center justify-between mb-4">
                 <Link href={project.link || "#"} className="focus:outline-none">
                     <h3 className="text-xl font-semibold tracking-tight transition-colors group-hover:text-primary">
@@ -40,8 +51,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
                     {project.link && (
                         <Link
                             href={project.link}
-                            // If internal link (MDX), don't use target blank, else do.
-                            // For now assuming internal links start with /
                             target={project.link.startsWith("/") ? undefined : "_blank"}
                             rel={project.link.startsWith("/") ? undefined : "noopener noreferrer"}
                             className="text-muted-foreground transition-colors hover:text-foreground z-10"

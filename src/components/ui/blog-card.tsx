@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
 import type { BlogPost } from "@/lib/data";
@@ -18,6 +19,17 @@ export function BlogCard({ post }: BlogCardProps) {
             whileHover={{ y: -4 }}
             className="group relative flex flex-col justify-between rounded-xl border border-border bg-card p-6 transition-all hover:shadow-lg dark:hover:shadow-primary/5"
         >
+            {post.image && (
+                <div className="relative mb-4 h-48 w-full overflow-hidden rounded-lg">
+                    <Image
+                        src={post.image}
+                        alt={post.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                </div>
+            )}
+
             <div>
                 <div className="flex items-center gap-3 text-sm text-muted-foreground mb-3">
                     <div className="flex items-center gap-1">
