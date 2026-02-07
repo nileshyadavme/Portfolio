@@ -181,3 +181,44 @@ code[data-rehype-pretty-code-figure] {
   text-decoration: none;
   border: none;
 }
+
+/* Print Styles */
+@media print {
+
+  header,
+  footer {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .min-h-screen {
+    min-height: auto !important;
+  }
+
+  .container {
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* Force light theme colors for printing */
+  article {
+    color: black !important;
+  }
+
+  article h1,
+  article h2,
+  article h3 {
+    color: black !important;
+    border-color: #000 !important;
+  }
+
+  article a {
+    text-decoration: none !important;
+    color: black !important;
+    border-bottom: none !important;
+  }
+}

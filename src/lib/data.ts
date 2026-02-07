@@ -286,6 +286,7 @@ export interface Book {
     author: string;
     thought: string;
     color: string;
+    image?: string;
 }
 
 export const BOOKS: Book[] = [
@@ -295,6 +296,7 @@ export const BOOKS: Book[] = [
         author: "Andy Hunt & Dave Thomas",
         thought: "A timeless guide on software craftsmanship. Changed how I approach debugging and refactoring.",
         color: "bg-amber-100 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400",
+        image: "/books/pragmatic-programmer.jpg",
     },
     {
         id: "2",
@@ -302,6 +304,7 @@ export const BOOKS: Book[] = [
         author: "Robert C. Martin",
         thought: "Fundamental principles for writing readable and maintainable code. 'Code is read much more often than it is written.'",
         color: "bg-emerald-100 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400",
+        image: "/books/clean-code.jpg",
     },
     {
         id: "3",
@@ -309,6 +312,7 @@ export const BOOKS: Book[] = [
         author: "Martin Kleppmann",
         thought: "The bible for distributed systems. Essential for understanding database internals and scalability.",
         color: "bg-blue-100 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400",
+        image: "/books/ddia.jpg",
     },
     {
         id: "4",
@@ -316,6 +320,7 @@ export const BOOKS: Book[] = [
         author: "Abelson & Sussman",
         thought: "Deep dive into the philosophy of computer science. Lisp reveals the beauty of recursion.",
         color: "bg-purple-100 dark:bg-purple-900/20 text-purple-700 dark:text-purple-400",
+        image: "/books/sicp.jpg",
     },
     {
         id: "5",
@@ -323,6 +328,7 @@ export const BOOKS: Book[] = [
         author: "Martin Fowler",
         thought: "Improving the design of existing code. A must-read for working on legacy codebases.",
         color: "bg-rose-100 dark:bg-rose-900/20 text-rose-700 dark:text-rose-400",
+        image: "/books/refactoring.jpg",
     },
     {
         id: "6",
@@ -330,6 +336,7 @@ export const BOOKS: Book[] = [
         author: "Robert Sedgewick",
         thought: "Comprehensive guide to algorithms and data structures. Essential for competitive programming.",
         color: "bg-cyan-100 dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-400",
+        image: "/books/algorithms.jpg",
     },
 ];
 

@@ -1,35 +1,47 @@
-"use client";
+import { getFileBySlug } from "@/lib/mdx";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { Metadata } from "next";
+import rehypePrettyCode from "rehype-pretty-code";
+import remarkGfm from "remark-gfm";
+import PrintButton from "@/components/resume/print-button";
 
-import { ResumeContent } from "@/components/resume/resume-content";
-import { ArrowLeft, Printer } from "lucide-react";
-import Link from "next/link";
+export const metadata: Metadata = {
+    title: "Resume | Nilesh",
+    description: "My professional resume.",
+};
 
-export default function ResumePage() {
+export default async function ResumePage() {
+    const resume = await getFileBySlug("resume", "main");
+
     return (
-        <div className="min-h-screen bg-muted/20 pb-16 print:bg-white print:pb-0">
-            {/* Toolbar - Hidden when printing */}
-            <div className="sticky top-0 z-10 border-b border-border bg-background/80 px-4 py-4 backdrop-blur-md print:hidden">
-                <div className="mx-auto flex max-w-5xl items-center justify-between">
-                    <Link
-                        href="/"
-                        className="flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                        <ArrowLeft className="h-4 w-4" />
-                        Back to Portfolio
-                    </Link>
-                    <button
-                        onClick={() => window.print()}
-                        className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                    >
-                        <Printer className="h-4 w-4" />
-                        Print / Save as PDF
-                    </button>
-                </div>
+        <div className="container mx-auto max-w-4xl px-4 py-24 md:py-32 print:py-0 print:max-w-none print:px-0">
+            {/* Print Button - Hidden in Print Mode */}
+            <div className="mb-8 flex justify-end">
+                <PrintButton />
             </div>
 
-            <div className="mx-auto mt-8 max-w-5xl px-4 print:mt-0 print:px-0">
-                <ResumeContent />
-            </div>
+            <article className="prose prose-slate dark:prose-invert max-w-none 
+                prose-headings:font-bold prose-headings:tracking-tight 
+                prose-h1:text-4xl prose-h1:mb-2 prose-h1:text-center
+                prose-h2:border-b prose-h2:border-border prose-h2:pb-2 prose-h2:mt-8 prose-h2:mb-4
+                prose-p:leading-relaxed prose-li:marker:text-primary
+                print:prose-neutral print:max-w-none
+            ">
+                <MDXRemote
+                    source={resume.content}
+                    options={{
+                        mdxOptions: {
+                            remarkPlugins: [remarkGfm],
+                            rehypePlugins: [
+                                [rehypePrettyCode, {
+                                    theme: "github-dark",
+                                    keepBackground: false,
+                                }]
+                            ]
+                        }
+                    }}
+                />
+            </article>
         </div>
     );
 }

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { BookOpen } from "lucide-react";
+import Image from "next/image";
 import { BOOKS } from "@/lib/data";
 
 export default function ReadsPage() {
@@ -24,20 +25,37 @@ export default function ReadsPage() {
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
                             whileHover={{ y: -5 }}
-                            className="group relative flex flex-col justify-between overflow-hidden rounded-lg border bg-background p-6 shadow-sm transition-all hover:shadow-md"
+                            className="group relative flex flex-col justify-between overflow-hidden rounded-lg border bg-card p-0 shadow-sm transition-all hover:shadow-md h-full"
                         >
-                            <div className="mb-4">
-                                <div className={`mb-3 inline-flex rounded-full p-2 ${book.color}`}>
-                                    <BookOpen className="h-5 w-5" />
-                                </div>
-                                <h3 className="font-semibold leading-tight text-xl">{book.title}</h3>
-                                <p className="text-sm text-muted-foreground mt-1">{book.author}</p>
+                            <div className="relative aspect-[3/4] w-full overflow-hidden bg-muted">
+                                {book.image ? (
+                                    <Image
+                                        src={book.image}
+                                        alt={book.title}
+                                        fill
+                                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                    />
+                                ) : (
+                                    <div className={`flex h-full items-center justify-center ${book.color}`}>
+                                        <BookOpen className="h-12 w-12 opacity-50" />
+                                    </div>
+                                )}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                             </div>
 
-                            <div className="relative pt-4 border-t border-border/50">
-                                <p className="text-sm text-muted-foreground/80 italic leading-relaxed">
-                                    "{book.thought}"
-                                </p>
+                            <div className="flex flex-col flex-grow p-6">
+                                <div className="mb-4">
+                                    <div className={`mb-3 inline-flex rounded-full p-2 py-1 text-xs font-medium ${book.color}`}>
+                                        {book.author}
+                                    </div>
+                                    <h3 className="font-bold leading-tight text-xl mb-1">{book.title}</h3>
+                                </div>
+
+                                <div className="mt-auto pt-4 border-t border-border/50">
+                                    <p className="text-sm text-muted-foreground italic leading-relaxed">
+                                        "{book.thought}"
+                                    </p>
+                                </div>
                             </div>
                         </motion.div>
                     ))}
