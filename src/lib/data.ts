@@ -8,6 +8,66 @@ export interface Project {
     image?: string;
 }
 
+export interface Achievement {
+    id: string;
+    title: string;
+    description: string;
+    icon: string; // lucide icon name
+    date?: string;
+    category: string;
+}
+
+export const ACHIEVEMENTS: Achievement[] = [
+    {
+        id: "1",
+        title: "Led Team to 40% Performance Improvement",
+        description: "Architected and implemented Next.js migration that reduced page load times by 40% across all products.",
+        icon: "Zap",
+        date: "2024",
+        category: "Leadership",
+    },
+    {
+        id: "2",
+        title: "Open Source Contributor",
+        description: "Active contributor to major open-source projects including React, Next.js, and TypeScript documentation.",
+        icon: "Github",
+        date: "2020 - Present",
+        category: "Community",
+    },
+    {
+        id: "3",
+        title: "Built Component Library Used by 5 Teams",
+        description: "Designed and developed a comprehensive design system adopted across the entire organization.",
+        icon: "Package",
+        date: "2023",
+        category: "Innovation",
+    },
+    {
+        id: "4",
+        title: "Mentored 10+ Junior Developers",
+        description: "Established mentorship program that helped junior engineers advance their careers and technical skills.",
+        icon: "Users",
+        date: "2021 - Present",
+        category: "Mentorship",
+    },
+    {
+        id: "5",
+        title: "Reduced CI/CD Pipeline Time by 50%",
+        description: "Optimized build and deployment processes, saving the team hundreds of hours annually.",
+        icon: "Gauge",
+        date: "2023",
+        category: "DevOps",
+    },
+    {
+        id: "6",
+        title: "Speaker at Tech Conferences",
+        description: "Presented talks on modern web architecture at ReactConf and Next.js Conf.",
+        icon: "Mic",
+        date: "2022 - 2024",
+        category: "Speaking",
+    },
+];
+
 export const PROJECTS: Project[] = [
     {
         id: "1",

@@ -2,6 +2,9 @@
 
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { ACHIEVEMENTS } from "@/lib/data";
+import * as Icons from "lucide-react";
+import { Trophy } from "lucide-react";
 
 export default function AboutPage() {
     return (
@@ -52,6 +55,66 @@ export default function AboutPage() {
                                 ))}
                             </div>
                         </div>
+                    </div>
+                </motion.div>
+
+                {/* Achievements Section */}
+                <motion.div
+                    id="achievements"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    className="mt-24"
+                >
+                    <div className="mb-12 text-center">
+                        <div className="inline-flex items-center gap-2 mb-4">
+                            <Trophy className="h-6 w-6 text-primary" />
+                            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Achievements</h2>
+                        </div>
+                        <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+                            Key milestones and accomplishments throughout my career
+                        </p>
+                    </div>
+
+                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                        {ACHIEVEMENTS.map((achievement, index) => {
+                            const IconComponent = (Icons as any)[achievement.icon] || Trophy;
+
+                            return (
+                                <motion.div
+                                    key={achievement.id}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                                    className="group relative overflow-hidden rounded-xl border border-border bg-card p-6 transition-all hover:shadow-lg dark:hover:shadow-primary/5"
+                                >
+                                    <div className="mb-4 inline-flex rounded-lg bg-primary/10 p-3 text-primary">
+                                        <IconComponent className="h-6 w-6" />
+                                    </div>
+                                    <div className="mb-2 flex items-start justify-between gap-2">
+                                        <h3 className="text-lg font-semibold tracking-tight">
+                                            {achievement.title}
+                                        </h3>
+                                    </div>
+                                    <p className="text-sm text-muted-foreground mb-3">
+                                        {achievement.description}
+                                    </p>
+                                    <div className="flex items-center justify-between text-xs">
+                                        {achievement.date && (
+                                            <span className="text-muted-foreground/60">{achievement.date}</span>
+                                        )}
+                                        <span className="rounded-full bg-primary/10 px-2 py-1 text-primary font-medium">
+                                            {achievement.category}
+                                        </span>
+                                    </div>
+
+                                    {/* Hover gradient effect */}
+                                    <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                                </motion.div>
+                            );
+                        })}
                     </div>
                 </motion.div>
             </div>
