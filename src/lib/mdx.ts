@@ -4,7 +4,7 @@ import matter from "gray-matter";
 
 const root = process.cwd();
 
-export type MdxType = "posts" | "projects";
+export type MdxType = "posts" | "projects" | "resume";
 
 export interface MdxFrontmatter {
     title: string;
