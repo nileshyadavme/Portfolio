@@ -1,21 +1,30 @@
-"use client";
+import { BlogList } from "@/components/blog/blog-list";
+import { getAllFilesFrontMatter } from "@/lib/mdx";
+import { Metadata } from "next";
+import { Suspense } from "react";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { BlogCard } from "@/components/ui/blog-card";
-import { BLOG_POSTS } from "@/lib/data";
-import { cn } from "@/lib/utils";
+export const metadata: Metadata = {
+    title: "Blog | Nilesh's Portfolio",
+    description: "Thoughts on software engineering, architecture, and the future of tech.",
+};
 
-const ALL_TAGS = Array.from(new Set(BLOG_POSTS.flatMap((post) => post.tags)));
-const CATEGORIES = ["All", ...ALL_TAGS];
+export default async function BlogPage() {
+    const posts = await getAllFilesFrontMatter("posts");
 
-export default function BlogPage() {
-    const [activeCategory, setActiveCategory] = useState("All");
+    // Map MDX frontmatter to BlogPost interface
+    const formattedPosts = posts.map((post) => ({
+        id: post.slug,
+        title: post.frontmatter.title,
+        excerpt: post.frontmatter.excerpt || "", // Ensure excerpt fallback
+        date: post.frontmatter.date,
+        readTime: post.frontmatter.readTime || "5 min read", // Fallback readTime
+        tags: post.frontmatter.tags,
+        slug: post.slug,
+        image: post.frontmatter.image,
+    }));
 
-    const filteredPosts = BLOG_POSTS.filter((post) => {
-        if (activeCategory === "All") return true;
-        return post.tags.includes(activeCategory);
-    });
+    // Sort posts by date (newest first)
+    formattedPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
     return (
         <div className="min-h-screen py-24 md:py-32">
@@ -27,35 +36,9 @@ export default function BlogPage() {
                     </p>
                 </div>
 
-                <div className="mb-12 flex justify-center">
-                    <div className="flex flex-wrap justify-center gap-2 max-w-3xl">
-                        {CATEGORIES.map((category) => (
-                            <button
-                                key={category}
-                                onClick={() => setActiveCategory(category)}
-                                className={cn(
-                                    "relative px-4 py-2 text-sm font-medium rounded-full border transition-all",
-                                    activeCategory === category
-                                        ? "border-primary bg-primary text-primary-foreground"
-                                        : "border-border bg-background text-muted-foreground hover:border-foreground/20 hover:text-foreground"
-                                )}
-                            >
-                                {category}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-
-                <motion.div
-                    layout
-                    className="grid gap-6 md:grid-cols-2"
-                >
-                    <AnimatePresence mode="popLayout">
-                        {filteredPosts.map((post) => (
-                            <BlogCard key={post.id} post={post} />
-                        ))}
-                    </AnimatePresence>
-                </motion.div>
+                <Suspense fallback={<div>Loading posts...</div>}>
+                    <BlogList initialPosts={formattedPosts} />
+                </Suspense>
             </div>
         </div>
     );

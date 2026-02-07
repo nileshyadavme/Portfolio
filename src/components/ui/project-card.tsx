@@ -13,7 +13,6 @@ interface ProjectCardProps {
 export function ProjectCard({ project }: ProjectCardProps) {
     return (
         <motion.div
-            layout
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
@@ -21,14 +20,18 @@ export function ProjectCard({ project }: ProjectCardProps) {
             className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card p-6 transition-all hover:shadow-lg dark:hover:shadow-primary/5"
         >
             <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-semibold tracking-tight">{project.title}</h3>
+                <Link href={project.link || "#"} className="focus:outline-none">
+                    <h3 className="text-xl font-semibold tracking-tight transition-colors group-hover:text-primary">
+                        {project.title}
+                    </h3>
+                </Link>
                 <div className="flex gap-2">
                     {project.github && (
                         <Link
                             href={project.github}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-muted-foreground transition-colors hover:text-foreground"
+                            className="text-muted-foreground transition-colors hover:text-foreground z-10"
                             aria-label="GitHub Repository"
                         >
                             <Github className="h-5 w-5" />
@@ -37,9 +40,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
                     {project.link && (
                         <Link
                             href={project.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-muted-foreground transition-colors hover:text-foreground"
+                            // If internal link (MDX), don't use target blank, else do.
+                            // For now assuming internal links start with /
+                            target={project.link.startsWith("/") ? undefined : "_blank"}
+                            rel={project.link.startsWith("/") ? undefined : "noopener noreferrer"}
+                            className="text-muted-foreground transition-colors hover:text-foreground z-10"
                             aria-label="View Project"
                         >
                             <ArrowUpRight className="h-5 w-5" />
@@ -48,7 +53,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 </div>
             </div>
 
-            <p className="mb-6 text-muted-foreground flex-grow">{project.description}</p>
+            <Link href={project.link || "#"} className="flex-grow focus:outline-none">
+                <p className="mb-6 text-muted-foreground">{project.description}</p>
+            </Link>
 
             <div className="flex flex-wrap gap-2 mt-auto">
                 {project.tags.map((tag) => (
@@ -63,6 +70,16 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
             {/* Hover gradient effect */}
             <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+            {/* Full Card Link overlay for better UX (except on buttons) */}
+            {project.link && (
+                <Link
+                    href={project.link}
+                    className="absolute inset-0 z-0"
+                    aria-hidden="true"
+                    tabIndex={-1}
+                />
+            )}
         </motion.div>
     );
 }

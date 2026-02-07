@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
   --font-sans: var(--font-inter);
@@ -108,4 +109,75 @@ body {
   background: rgba(var(--background), 0.8);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+}
+
+/* Rehype Pretty Code Styles */
+figure[data-rehype-pretty-code-figure] {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+pre[data-rehype-pretty-code-figure] {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}
+
+code[data-rehype-pretty-code-figure] {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* Custom Typography Polishing */
+.prose blockquote {
+  font-style: normal;
+  border-left-color: var(--primary);
+  background: var(--muted);
+  padding: 1rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.prose table {
+  width: 100%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border-collapse: collapse;
+}
+
+.prose th {
+  text-align: left;
+  padding: 0.75rem;
+  background: var(--muted);
+  border-bottom: 2px solid var(--border);
+}
+
+.prose td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.prose a {
+  text-decoration: none;
+  border-bottom: 1px dotted var(--primary);
+  transition: all 0.2s;
+}
+
+.prose a:hover {
+  border-bottom-style: solid;
+  color: var(--primary);
+}
+
+/* Heading Anchors */
+.prose h2,
+.prose h3,
+.prose h4 {
+  position: relative;
+}
+
+.prose h2 a,
+.prose h3 a,
+.prose h4 a {
+  text-decoration: none;
+  border: none;
 }

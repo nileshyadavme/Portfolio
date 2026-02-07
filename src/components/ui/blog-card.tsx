@@ -12,7 +12,6 @@ interface BlogCardProps {
 export function BlogCard({ post }: BlogCardProps) {
     return (
         <motion.article
-            layout
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95 }}
@@ -33,15 +32,16 @@ export function BlogCard({ post }: BlogCardProps) {
                 </div>
 
                 <h3 className="mb-2 text-xl font-bold tracking-tight group-hover:text-primary transition-colors">
-                    <Link href={`/blog/${post.slug}`} className="focus:outline-none">
-                        <span className="absolute inset-0" aria-hidden="true" />
+                    <Link href={`/blog/${post.slug || post.id}`} className="focus:outline-none">
                         {post.title}
                     </Link>
                 </h3>
 
-                <p className="text-muted-foreground line-clamp-3 mb-4">
-                    {post.excerpt}
-                </p>
+                <Link href={`/blog/${post.slug || post.id}`} className="focus:outline-none">
+                    <p className="text-muted-foreground line-clamp-3 mb-4">
+                        {post.excerpt}
+                    </p>
+                </Link>
             </div>
 
             <div className="flex items-center justify-between mt-auto">
@@ -60,6 +60,14 @@ export function BlogCard({ post }: BlogCardProps) {
                     Read more <ArrowRight className="ml-1 h-3 w-3" />
                 </div>
             </div>
+
+            {/* Full Card Link overlay for better UX (except on buttons) */}
+            <Link
+                href={`/blog/${post.slug || post.id}`}
+                className="absolute inset-0 z-0"
+                aria-hidden="true"
+                tabIndex={-1}
+            />
         </motion.article>
     );
 }

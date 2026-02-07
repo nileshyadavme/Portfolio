@@ -1,0 +1,29 @@
+---
+title: "E-Commerce Microservices"
+description: "Scalable e-commerce backend built with Go and gRPC. Features event-driven architecture and distributed tracing."
+date: "2024-01-15"
+tags: ["Backend", "Go", "Microservices"]
+image: "/projects/ecommerce.jpg"
+github: "https://github.com"
+---
+
+# E-Commerce Microservices
+
+A robust backend system designed for high scalability and fault tolerance. This project simulates a real-world e-commerce platform handling thousands of concurrent users.
+
+## System Design
+
+The system is broken down into independent services:
+
+-   **Product Service**: Manages inventory and catalog.
+-   **Order Service**: Handles checkout flows and transactions.
+-   **Payment Service**: Integrates with Stripe/PayPal.
+-   **Notification Service**: Sends emails/SMS via Kafka events.
+
+## Technologies
+
+-   **Go (Golang)**: For high-performance services.
+-   **gRPC**: For inter-service communication.
+-   **Kafka**: For event-driven messaging.
+-   **Redis**: Caching layer for product catalog.
+-   **Jaeger**: Distributed tracing to debug latency.

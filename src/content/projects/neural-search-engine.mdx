@@ -1,0 +1,32 @@
+---
+title: "Neural Search Engine"
+description: "A semantic search engine built with Python and vector databases. Uses embeddings to understand query intent beyond keyword matching."
+date: "2024-02-01"
+tags: ["AI", "Python", "Vector DB"]
+image: "/projects/neural-search.jpg"
+github: "https://github.com"
+link: "https://example.com"
+---
+
+# Neural Search Engine
+
+Traditional search engines rely on keyword matching (TF-IDF), which fails when users search for concepts rather than exact words. This project solves that by using **Semantic Search**.
+
+## Key Features
+
+-   **Vector Embeddings**: Uses OpenAI's `text-embedding-3-small` to convert text into high-dimensional vectors.
+-   **Vector Database**: Stores embeddings in **Pinecone** for ultra-fast similarity search.
+-   **Hybrid Search**: Combines keyword search (BM25) with semantic search for best results.
+
+## Tech Stack
+
+-   **Python** (FastAPI)
+-   **LangChain**
+-   **Pinecone**
+-   **Next.js** (Frontend)
+
+## Architecture
+
+1.  **Ingestion**: Documents are chunked and embedded.
+2.  **Storage**: Vectors are stored in Pinecone with metadata.
+3.  **Query**: User questions are embedded and compared against stored vectors using Cosine Similarity.
