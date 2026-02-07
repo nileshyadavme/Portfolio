@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
@@ -69,14 +68,10 @@ export function Navbar() {
                             {item.name}
                         </Link>
                     ))}
-                    <div className="ml-2 border-l pl-4 border-border/50">
-                        <ThemeToggle />
-                    </div>
                 </nav>
 
                 {/* Mobile Menu Button - Visible only on small screens */}
                 <div className="flex items-center gap-4 md:hidden">
-                    <ThemeToggle />
                     <button
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                         className="relative z-50 p-2 -mr-2 text-foreground/80 hover:text-foreground focus:outline-none"
