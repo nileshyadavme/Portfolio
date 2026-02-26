@@ -1,6 +1,11 @@
 /// <reference types="vite/client" />
-// Automatically discover all markdown files in the journals directory
-const mds = import.meta.glob('./journals/*.md', { query: '?raw', eager: true, import: 'default' });
+// Lazy glob — the markdown files are NOT bundled upfront.
+// Each file is fetched as a separate network request only when needed.
+const mdLoaders = import.meta.glob('./journals/*.md', { query: '?raw' }) as Record<string, () => Promise<{ default: string }>>;
+
+// Eager glob for metadata only (small strings) — used by the list/folder views.
+// We read all files at build time just to parse frontmatter (no body).
+const mdsEager = import.meta.glob('./journals/*.md', { query: '?raw', eager: true, import: 'default' });
 
 export type JournalPost = {
   id: string;
@@ -57,8 +62,8 @@ function parseFrontmatter(markdown: string) {
   return { metadata, content: rawContent };
 }
 
-// Map the raw files into our expected object format
-export const journalPosts: JournalPost[] = Object.entries(mds).map(([path, content]) => {
+// Map the raw files into our expected object format (metadata only — content is loaded lazily)
+export const journalPosts: JournalPost[] = Object.entries(mdsEager).map(([path, content]) => {
   // Extract id from filename, e.g., './journals/slow-coding.md' -> 'slow-coding'
   const id = path.split('/').pop()?.replace('.md', '') || 'unknown';
   const { metadata, content: bodyContent } = parseFrontmatter(content as string);
@@ -74,3 +79,28 @@ export const journalPosts: JournalPost[] = Object.entries(mds).map(([path, conte
     content: bodyContent,
   };
 }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+/**
+ * Lazily load the full Markdown body for a specific post by its id.
+ * Called only when the user opens a JournalPost page — not on the list view.
+ * Falls back to the already-parsed content if the dynamic import fails.
+ */
+export async function loadJournalContent(id: string): Promise<string> {
+  const key = `./journals/${id}.md`;
+  const loader = mdLoaders[key];
+  if (!loader) {
+    // Fall back to the eagerly-parsed content we already have
+    const post = journalPosts.find(p => p.id === id);
+    return post?.content ?? '';
+  }
+  try {
+    const mod = await loader();
+    const raw = mod.default;
+    const { content } = parseFrontmatter(raw);
+    return content;
+  } catch {
+    const post = journalPosts.find(p => p.id === id);
+    return post?.content ?? '';
+  }
+}
+
