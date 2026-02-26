@@ -13,6 +13,7 @@ export const config = {
     linkedin: "https://linkedin.com/",
     twitter: "https://twitter.com",
     email: "mailto:hello@example.com",
+    youtube: "https://youtube.com/@nilesh.sensei",
   },
   currently: {
     reading: {
