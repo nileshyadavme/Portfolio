@@ -1,6 +1,8 @@
 import { motion } from "motion/react";
 import { useState } from "react";
-import { useData } from "../context/DataContext";
+import { config } from "../data/config";
+import { projects } from "../data/projects";
+import { journalPosts } from "../data/journal";
 import { Link } from "react-router-dom";
 import { ArrowRight, FileText } from "lucide-react";
 import { Squiggle } from "../components/Squiggle";
@@ -9,7 +11,6 @@ import { StickyNote } from "../components/StickyNote";
 import { ResumeModal } from "../components/ResumeModal";
 
 export function Home() {
-  const { config, projects, journalPosts } = useData();
   const recentProjects = projects.slice(0, 2);
   const recentPosts = journalPosts.slice(0, 2);
   const [resumeOpen, setResumeOpen] = useState(false);

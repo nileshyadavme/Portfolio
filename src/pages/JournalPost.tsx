@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "motion/react";
-import { useData } from "../context/DataContext";
+import { journalPosts } from "../data/journal";
 import { Squiggle } from "../components/Squiggle";
 import { ArrowLeft, Clock, Calendar, Tag } from "lucide-react";
 import ReactMarkdown from "react-markdown";
@@ -11,9 +11,8 @@ import "katex/dist/katex.min.css";
 import "highlight.js/styles/github-dark.css";
 
 export function JournalPost() {
-  const { journalPosts } = useData();
   const { id } = useParams();
-  const post = journalPosts.find((p: any) => p.id === id);
+  const post = journalPosts.find((p) => p.id === id);
 
   if (!post) {
     return (

@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { useData } from "../context/DataContext";
+import { config } from "../data/config";
 import { Link } from "react-router-dom";
 import {
   Github,
@@ -14,6 +14,23 @@ import {
   Sparkles,
 } from "lucide-react";
 import { ThemeToggle } from "../components/ThemeToggle";
+
+/* ─── Easy to edit: add/remove social & nav cards here ─── */
+
+const socialLinks = [
+  { label: "GitHub", url: config.socials.github, icon: Github, color: "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300" },
+  { label: "Twitter", url: config.socials.twitter, icon: Twitter, color: "bg-sky-100 dark:bg-sky-900/40 text-sky-600 dark:text-sky-400" },
+  { label: "LinkedIn", url: config.socials.linkedin, icon: Linkedin, color: "bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400" },
+  { label: "Email", url: config.socials.email, icon: Mail, color: "bg-[var(--color-accent)]/10 text-[var(--color-accent)]" },
+  // ↑ Add more here — they auto-wrap 2 per row
+];
+
+const navLinks = [
+  { label: "Projects", url: "/projects", icon: Briefcase, description: "Things I've designed & built." },
+  { label: "Journal", url: "/journal", icon: PenTool, description: "Notes from the workshop." },
+  { label: "Photography", url: "/photography", icon: Camera, description: "A visual diary of light & places." },
+  // ↑ Add more here — 2 per row, grid grows automatically
+];
 
 /* ─── Base card ─── */
 function BentoCard({
@@ -40,7 +57,6 @@ function BentoCard({
 /* ─── Cards ─── */
 
 function ProfileCard() {
-  const { config } = useData();
   return (
     <BentoCard
       className="col-span-2 row-span-2 flex flex-col items-center justify-center text-center gap-3 p-4"
@@ -71,7 +87,6 @@ function ProfileCard() {
 }
 
 function QuoteCard() {
-  const { config } = useData();
   return (
     <BentoCard className="col-span-2 flex items-center p-4" delay={0.15}>
       <p className="font-handwriting text-base text-[var(--color-text)]/70 dark:text-[var(--color-dark-text)]/70 leading-relaxed italic border-l-2 border-[var(--color-accent)] pl-4 line-clamp-4">
@@ -82,7 +97,6 @@ function QuoteCard() {
 }
 
 function CurrentlyCard() {
-  const { config } = useData();
   return (
     <BentoCard className="col-span-2" delay={0.2}>
       <div className="h-full flex flex-col justify-center gap-2 p-4 overflow-hidden">
@@ -109,21 +123,6 @@ function CurrentlyCard() {
 
 /* ─── Page ─── */
 export function Links() {
-  const { config } = useData();
-
-  const socialLinks = [
-    { label: "GitHub", url: config.socials.github, icon: Github, color: "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300" },
-    { label: "Twitter", url: config.socials.twitter, icon: Twitter, color: "bg-sky-100 dark:bg-sky-900/40 text-sky-600 dark:text-sky-400" },
-    { label: "LinkedIn", url: config.socials.linkedin, icon: Linkedin, color: "bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400" },
-    { label: "Email", url: config.socials.email, icon: Mail, color: "bg-[var(--color-accent)]/10 text-[var(--color-accent)]" },
-  ];
-
-  const navLinks = [
-    { label: "Projects", url: "/projects", icon: Briefcase, description: "Things I've designed & built." },
-    { label: "Journal", url: "/journal", icon: PenTool, description: "Notes from the workshop." },
-    { label: "Photography", url: "/photography", icon: Camera, description: "A visual diary of light & places." },
-  ];
-
   return (
     // On md+ screens: lock to viewport height, no scroll.
     // On mobile: natural scroll since screen is too small.

@@ -1,12 +1,11 @@
 import { motion } from "motion/react";
 import { useState } from "react";
-import { useData } from "../context/DataContext";
+import { journalPosts } from "../data/journal";
 import { Squiggle } from "../components/Squiggle";
 import { Link } from "react-router-dom";
 import { Search } from "lucide-react";
 
 export function Journal() {
-  const { journalPosts } = useData();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
 

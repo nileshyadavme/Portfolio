@@ -1,12 +1,11 @@
 import { motion } from "motion/react";
-import { useData } from "../context/DataContext";
-import { skills } from "../data/experience"; // Can keep skills static for now or add them to DB if needed
+import { config } from "../data/config";
+import { experience, skills } from "../data/experience";
+import { timeline } from "../data/timeline";
 import { Squiggle } from "../components/Squiggle";
 import { Polaroid } from "../components/Polaroid";
 
 export function About() {
-  const { config, experience, timeline } = useData();
-
   return (
     <div className="space-y-24">
       {/* Header */}

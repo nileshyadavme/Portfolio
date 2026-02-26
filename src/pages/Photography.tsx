@@ -1,13 +1,14 @@
 import { motion, AnimatePresence } from "motion/react";
 import { useState, useMemo } from "react";
-import { useData } from "../context/DataContext";
+import { photos } from "../data/photos";
 import { Squiggle } from "../components/Squiggle";
 import { Polaroid } from "../components/Polaroid";
 import { X } from "lucide-react";
 
 export function Photography() {
-  const { photos } = useData();
-  const [selectedPhoto, setSelectedPhoto] = useState<any | null>(null);
+  const [selectedPhoto, setSelectedPhoto] = useState<(typeof photos)[0] | null>(
+    null,
+  );
   const [activeTag, setActiveTag] = useState<string>("All");
 
   const tags = useMemo(
@@ -95,9 +96,9 @@ export function Photography() {
                 className="flex justify-center"
               >
                 <Polaroid
-                  src={photo.thumbnailUrl || photo.url}
+                  src={photo.url}
                   caption={photo.caption}
-                  rotation={photo.rotation || 0}
+                  rotation={photo.rotation}
                   className="w-full"
                   onClick={() => setSelectedPhoto(photo)}
                 />
@@ -147,7 +148,7 @@ export function Photography() {
             >
               <div className="flex-1 w-full relative">
                 <img
-                  src={selectedPhoto.fullUrl || selectedPhoto.url}
+                  src={selectedPhoto.url}
                   alt={selectedPhoto.caption}
                   className="w-full h-auto max-h-[80vh] object-contain shadow-2xl"
                 />

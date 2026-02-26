@@ -1,17 +1,16 @@
 import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
-import { useData } from "../context/DataContext";
+import { projects } from "../data/projects";
 import { Squiggle } from "../components/Squiggle";
 import { Polaroid } from "../components/Polaroid";
 import { ExternalLink, Github } from "lucide-react";
 
 export function Projects() {
-  const { projects } = useData();
   const [filter, setFilter] = useState<string | null>(null);
-  const categories = Array.from(new Set(projects.map((p: any) => p.category)));
+  const categories = Array.from(new Set(projects.map((p) => p.category)));
 
   const filteredProjects = filter
-    ? projects.filter((p: any) => p.category === filter)
+    ? projects.filter((p) => p.category === filter)
     : projects;
 
   return (
@@ -82,12 +81,12 @@ export function Projects() {
                       {project.title}
                     </h2>
                     <span className="px-3 py-1 text-xs font-code bg-[var(--color-gold)]/20 text-[var(--color-text)]/70 dark:text-[var(--color-dark-text)]/70 rounded-full">
-                      {project.date}
+                      {project.status}
                     </span>
                   </div>
 
                   <p className="font-body text-lg text-[var(--color-text)]/80 dark:text-[var(--color-dark-text)]/80 leading-relaxed mb-6">
-                    {project.description}
+                    {project.longDescription}
                   </p>
 
                   <div className="mb-8">
@@ -95,7 +94,7 @@ export function Projects() {
                       Tech Stack
                     </h3>
                     <div className="flex flex-wrap gap-2">
-                      {project.technologies?.map((tech: string) => (
+                      {project.techStack.map((tech) => (
                         <span
                           key={tech}
                           className="font-code text-sm px-2 py-1 border border-[var(--color-gold)]/30 rounded-sm"
@@ -107,9 +106,9 @@ export function Projects() {
                   </div>
 
                   <div className="flex gap-6">
-                    {project.githubUrl && (
+                    {project.github && (
                       <a
-                        href={project.githubUrl}
+                        href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 font-display text-lg hover:text-[var(--color-accent)] transition-colors"
@@ -117,9 +116,9 @@ export function Projects() {
                         <Github className="w-5 h-5" /> Source
                       </a>
                     )}
-                    {project.demoUrl && (
+                    {project.demo && (
                       <a
-                        href={project.demoUrl}
+                        href={project.demo}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 font-display text-lg hover:text-[var(--color-accent)] transition-colors"
