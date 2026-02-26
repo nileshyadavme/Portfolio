@@ -3,10 +3,13 @@ import { useState } from "react";
 import { projects } from "../data/projects";
 import { Squiggle } from "../components/Squiggle";
 import { Polaroid } from "../components/Polaroid";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, Image as ImageIcon } from "lucide-react";
+import { ProjectGallery } from "../components/ProjectGallery";
 
 export function Projects() {
   const [filter, setFilter] = useState<string | null>(null);
+  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+
   const categories = Array.from(new Set(projects.map((p) => p.category)));
 
   const filteredProjects = filter
@@ -130,20 +133,41 @@ export function Projects() {
                 </div>
 
                 <div
-                  className={`order-1 ${index % 2 === 0 ? "md:order-2" : "md:order-1"} flex justify-center`}
+                  className={`order-1 ${index % 2 === 0 ? "md:order-2" : "md:order-1"} flex justify-center relative group`}
                 >
-                  <Polaroid
-                    src={project.image}
-                    caption={project.title}
-                    rotation={index % 2 === 0 ? 2 : -2}
-                    className="w-full max-w-md"
-                  />
+                  <div className="relative">
+                    <Polaroid
+                      src={project.image}
+                      caption={project.title}
+                      rotation={index % 2 === 0 ? 2 : -2}
+                      className="w-full max-w-md transition-all duration-300 group-hover:blur-[2px]"
+                      onClick={() => setSelectedProject(project)}
+                    />
+                    <div
+                      className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer pointer-events-none"
+                    >
+                      <div className="bg-[var(--color-accent)] text-[var(--color-cream)] px-4 py-2 rounded-full font-code text-sm shadow-xl flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <ImageIcon className="w-4 h-4" />
+                        View Gallery
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </motion.article>
             ))}
           </AnimatePresence>
         </motion.div>
       </section>
+
+      {/* Project Gallery Modal */}
+      {selectedProject && (
+        <ProjectGallery
+          isOpen={!!selectedProject}
+          title={selectedProject.title}
+          images={selectedProject.gallery || [selectedProject.image]}
+          onClose={() => setSelectedProject(null)}
+        />
+      )}
     </div>
   );
 }

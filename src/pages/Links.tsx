@@ -183,23 +183,29 @@ export function Links() {
           {/* Currently */}
           <CurrentlyCard />
 
-          {/* Nav cards — col-span-2 each, 2 per row */}
-          {navLinks.map(({ label, url, icon: Icon, description }, i) => (
-            <BentoCard key={label} className="col-span-2" delay={0.25 + i * 0.05}>
-              <Link to={url} className="h-full group flex flex-col justify-between p-4 gap-2">
-                <div className="flex items-start justify-between">
-                  <div className="w-8 h-8 rounded-xl bg-[var(--color-accent)]/10 flex items-center justify-center">
-                    <Icon className="w-3.5 h-3.5 text-[var(--color-accent)]" />
+          {/* Nav cards */}
+          {navLinks.map(({ label, url, icon: Icon, description }, i) => {
+            // If there's an odd number of links and this is the last one, make it span all 4 columns
+            const isLastOdd = i === navLinks.length - 1 && navLinks.length % 2 !== 0;
+            const colSpanClass = isLastOdd ? "col-span-4" : "col-span-2";
+
+            return (
+              <BentoCard key={label} className={colSpanClass} delay={0.25 + i * 0.05}>
+                <Link to={url} className="h-full group flex flex-col justify-between p-4 gap-2">
+                  <div className="flex items-start justify-between">
+                    <div className="w-8 h-8 rounded-xl bg-[var(--color-accent)]/10 flex items-center justify-center">
+                      <Icon className="w-3.5 h-3.5 text-[var(--color-accent)]" />
+                    </div>
+                    <ArrowUpRight className="w-4 h-4 text-[var(--color-text)]/20 group-hover:text-[var(--color-accent)] transition-colors" />
                   </div>
-                  <ArrowUpRight className="w-4 h-4 text-[var(--color-text)]/20 group-hover:text-[var(--color-accent)] transition-colors" />
-                </div>
-                <div>
-                  <p className="font-display font-semibold text-sm mb-0.5">{label}</p>
-                  <p className="font-body text-xs text-[var(--color-text)]/50 dark:text-[var(--color-dark-text)]/50 leading-relaxed">{description}</p>
-                </div>
-              </Link>
-            </BentoCard>
-          ))}
+                  <div>
+                    <p className="font-display font-semibold text-sm mb-0.5">{label}</p>
+                    <p className="font-body text-xs text-[var(--color-text)]/50 dark:text-[var(--color-dark-text)]/50 leading-relaxed">{description}</p>
+                  </div>
+                </Link>
+              </BentoCard>
+            );
+          })}
         </div>
 
         {/* Footer */}
