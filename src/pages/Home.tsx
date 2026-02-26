@@ -9,6 +9,7 @@ import { Squiggle } from "../components/Squiggle";
 import { Polaroid } from "../components/Polaroid";
 import { ResumeModal } from "../components/ResumeModal";
 import { CodingStats } from "../components/CodingStats";
+import { GitHubHeatmap } from "../components/GitHubHeatmap";
 
 export function Home() {
   const recentProjects = projects.slice(0, 2);

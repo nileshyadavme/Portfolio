@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { ThemeToggle } from "./ThemeToggle";
 import { MotionBackground } from "./MotionBackground";
 import { useLocation } from "react-router-dom";
+import { Terminal } from "./Terminal";
 
 function PageLoader() {
   return (
@@ -49,6 +50,7 @@ export function Layout({ children }: { children: ReactNode }) {
         </motion.main>
       </AnimatePresence>
       <Footer />
+      <Terminal />
     </div>
   );
 }

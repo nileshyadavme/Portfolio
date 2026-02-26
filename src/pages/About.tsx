@@ -4,6 +4,7 @@ import { experience, skills } from "../data/experience";
 import { timeline } from "../data/timeline";
 import { Squiggle } from "../components/Squiggle";
 import { Polaroid } from "../components/Polaroid";
+import { SkillsWall } from "../components/SkillsWall";
 import profilePic from "../data/assets/1.jpeg";
 
 export function About() {
@@ -67,59 +68,9 @@ export function About() {
 
       <Squiggle className="text-[var(--color-gold)]" />
 
-      {/* Skills & Tools */}
+      {/* Skills Wall */}
       <section>
-        <h2 className="font-display text-4xl font-bold mb-12">
-          Tools of the Trade
-        </h2>
-        <div className="grid md:grid-cols-2 gap-12">
-          <div>
-            <h3 className="font-handwriting text-2xl text-[var(--color-accent)] mb-6">
-              Digital
-            </h3>
-            <ul className="space-y-4 font-code text-sm">
-              {skills
-                .filter((s) => s.category !== "Physical")
-                .map((skill) => (
-                  <li key={skill.name} className="flex items-center gap-4">
-                    <span className="w-24 font-bold">{skill.name}</span>
-                    <div className="flex-1 h-2 bg-[var(--color-gold)]/20 rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, ease: "easeOut" }}
-                        className="h-full bg-[var(--color-accent)]"
-                      />
-                    </div>
-                  </li>
-                ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-handwriting text-2xl text-[var(--color-secondary)] mb-6">
-              Analog
-            </h3>
-            <ul className="space-y-4 font-code text-sm">
-              {skills
-                .filter((s) => s.category === "Physical")
-                .map((skill) => (
-                  <li key={skill.name} className="flex items-center gap-4">
-                    <span className="w-24 font-bold">{skill.name}</span>
-                    <div className="flex-1 h-2 bg-[var(--color-gold)]/20 rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, ease: "easeOut" }}
-                        className="h-full bg-[var(--color-secondary)]"
-                      />
-                    </div>
-                  </li>
-                ))}
-            </ul>
-          </div>
-        </div>
+        <SkillsWall />
       </section>
 
       <Squiggle className="text-[var(--color-secondary)]" />

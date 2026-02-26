@@ -17,6 +17,7 @@ const preloadPhotography = () => import("./pages/Photography").then(m => ({ defa
 const preloadContact = () => import("./pages/Contact").then(m => ({ default: m.Contact }));
 const preloadLinks = () => import("./pages/Links").then(m => ({ default: m.Links }));
 const preloadBooks = () => import("./pages/Books").then(m => ({ default: m.Books }));
+const preloadProjectDetail = () => import("./pages/ProjectDetail").then(m => ({ default: m.ProjectDetail }));
 
 // Kick off all preloads immediately at module load time
 preloadHome();
@@ -28,6 +29,7 @@ preloadPhotography();
 preloadContact();
 preloadLinks();
 preloadBooks();
+preloadProjectDetail();
 
 const Home = lazy(preloadHome);
 const About = lazy(preloadAbout);
@@ -38,6 +40,7 @@ const Photography = lazy(preloadPhotography);
 const Contact = lazy(preloadContact);
 const Links = lazy(preloadLinks);
 const Books = lazy(preloadBooks);
+const ProjectDetail = lazy(preloadProjectDetail);
 
 // Fallback for /links only (outside of Layout, which has its own Suspense)
 function PageLoader() {
@@ -71,6 +74,7 @@ export default function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/projects" element={<Projects />} />
+                <Route path="/projects/:id" element={<ProjectDetail />} />
                 <Route path="/journal" element={<Journal />} />
                 <Route path="/journal/:id" element={<JournalPost />} />
                 <Route path="/books" element={<Books />} />

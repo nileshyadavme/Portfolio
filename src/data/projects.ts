@@ -20,6 +20,12 @@ export const projects = [
       "Getting the two-way glass to not absorb too much light from the monitor behind it.",
     learnings:
       "Learned a lot about hardware-software interfacing and basic woodworking for the frame.",
+    problem:
+      "Every morning I wasted time unlocking my phone just to check the time, weather, and calendar before a meeting.",
+    solution:
+      "Built a Raspberry Pi-powered smart mirror with a two-way glass pane over an old monitor. Facial recognition adjusts the widget layout per person detected.",
+    impact:
+      "Saved ~5 minutes every morning. The project was shared on Hackaday and received 2k+ upvotes.",
   },
   {
     id: "digital-garden",
@@ -41,6 +47,12 @@ export const projects = [
     challenges:
       "Implementing fast client-side search across hundreds of markdown files.",
     learnings: "Deep dive into AST parsing and search indexing algorithms.",
+    problem:
+      "Existing blog themes are bloated and difficult to customize. Writers wanted something minimal that supported bidirectional linking.",
+    solution:
+      "Designed a clean Next.js + MDX theme with client-side search via Fuse.js, bidirectional link graph generation at build time, and automatic dark mode.",
+    impact:
+      "Used by 40+ writers. Featured on the Next.js showcase. 200+ GitHub stars.",
   },
   {
     id: "analog-synth",
@@ -62,5 +74,11 @@ export const projects = [
     challenges:
       "Tuning the oscillators to stay in pitch across multiple octaves.",
     learnings: "Advanced PCB routing techniques and analog circuit design.",
+    problem:
+      "Commercial synthesizers are expensive and generic. I wanted an instrument with a sound and feel completely unique to me.",
+    solution:
+      "Designed a 3-oscillator analog synth from scratch: custom PCB in KiCad, 3D-printed knobs, and a laser-cut walnut enclosure.",
+    impact:
+      "Used daily for music production. Inspired two others to build their own. Now documenting the build process as an open-source hardware project.",
   },
 ];

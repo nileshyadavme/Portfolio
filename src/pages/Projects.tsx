@@ -1,9 +1,10 @@
 import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
 import { projects } from "../data/projects";
+import { Link } from "react-router-dom";
 import { Squiggle } from "../components/Squiggle";
 import { Polaroid } from "../components/Polaroid";
-import { ExternalLink, Github, Image as ImageIcon, ArrowLeft } from "lucide-react";
+import { ExternalLink, Github, Image as ImageIcon, ArrowLeft, FileText } from "lucide-react";
 import { ProjectGallery } from "../components/ProjectGallery";
 import { FolderCard } from "../components/FolderCard";
 
@@ -180,6 +181,12 @@ export function Projects() {
                             <ExternalLink className="w-5 h-5" /> Live Demo
                           </a>
                         )}
+                        <Link
+                          to={`/projects/${project.id}`}
+                          className="flex items-center gap-2 font-display text-lg hover:text-[var(--color-accent)] transition-colors text-[var(--color-accent)]/80"
+                        >
+                          <FileText className="w-5 h-5" /> Case Study
+                        </Link>
                       </div>
                     </div>
 
