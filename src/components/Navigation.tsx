@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { motion } from "motion/react";
-import { Compass, BookOpen, PenTool, Coffee, Mail, Camera, Link2 } from "lucide-react";
+import { Compass, BookOpen, PenTool, Coffee, Mail, Camera, Link2, Library } from "lucide-react";
 import clsx from "clsx";
 
 const navItems = [
@@ -8,6 +8,7 @@ const navItems = [
   { path: "/about", label: "About", icon: Coffee, end: false },
   { path: "/projects", label: "Projects", icon: PenTool, end: false },
   { path: "/journal", label: "Journal", icon: BookOpen, end: false },
+  { path: "/books", label: "Library", icon: Library, end: false },
   { path: "/photography", label: "Photography", icon: Camera, end: false },
   { path: "/links", label: "Links", icon: Link2, end: false },
   { path: "/contact", label: "Contact", icon: Mail, end: false },

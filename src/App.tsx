@@ -9,6 +9,7 @@ import { JournalPost } from "./pages/JournalPost";
 import { Photography } from "./pages/Photography";
 import { Contact } from "./pages/Contact";
 import { Links } from "./pages/Links";
+import { Books } from "./pages/Books";
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
                 <Route path="/projects" element={<Projects />} />
                 <Route path="/journal" element={<Journal />} />
                 <Route path="/journal/:id" element={<JournalPost />} />
+                <Route path="/books" element={<Books />} />
                 <Route path="/photography" element={<Photography />} />
                 <Route path="/contact" element={<Contact />} />
               </Routes>
