@@ -100,6 +100,7 @@ export function Photography() {
                   category={folder.category}
                   date={folder.date}
                   onClick={() => setSelectedFolder(folder)}
+                  itemLabel="photo"
                 />
               </motion.div>
             ))}

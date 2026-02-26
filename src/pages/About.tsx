@@ -4,6 +4,7 @@ import { experience, skills } from "../data/experience";
 import { timeline } from "../data/timeline";
 import { Squiggle } from "../components/Squiggle";
 import { Polaroid } from "../components/Polaroid";
+import profilePic from "../data/assets/1.jpeg";
 
 export function About() {
   return (
@@ -24,7 +25,7 @@ export function About() {
 
           <div className="flex lg:hidden justify-center mb-12">
             <Polaroid
-              src="https://picsum.photos/seed/portrait/400/500"
+              src={profilePic}
               caption="Me, probably thinking about coffee"
               rotation={4}
               className="w-64 md:w-72"
@@ -56,7 +57,7 @@ export function About() {
 
         <div className="hidden lg:block flex-shrink-0 mt-8 lg:mt-0">
           <Polaroid
-            src="https://picsum.photos/seed/portrait/400/500"
+            src={profilePic}
             caption="Me, probably thinking about coffee"
             rotation={4}
             className="w-64 lg:w-72 xl:w-80"

@@ -111,6 +111,7 @@ export function Journal() {
                     category={folder.category}
                     date={folder.date}
                     onClick={() => setSelectedTag(folder.id)}
+                    itemLabel="post"
                   />
                 </motion.div>
               ))}

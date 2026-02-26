@@ -9,6 +9,8 @@ interface FolderCardProps {
     onClick: () => void;
     /** Pass true for above-the-fold cards to eagerly load them */
     priority?: boolean;
+    /** Singular label for the item type, e.g. "project", "photo", "post" */
+    itemLabel?: string;
 }
 
 export function FolderCard({
@@ -19,6 +21,7 @@ export function FolderCard({
     date,
     onClick,
     priority = false,
+    itemLabel = "project",
 }: FolderCardProps) {
     return (
         <div
@@ -47,7 +50,7 @@ export function FolderCard({
             <div className="absolute top-4 right-4 flex items-center gap-2">
                 <span className="bg-black/40 backdrop-blur-md text-white text-xs px-2.5 py-1 rounded-full font-code border border-white/10 flex items-center gap-1.5 shadow-sm">
                     <FolderHeart className="w-3.5 h-3.5" />
-                    {count} {count === 1 ? 'project' : 'projects'}
+                    {count} {count === 1 ? itemLabel : `${itemLabel}s`}
                 </span>
             </div>
 
