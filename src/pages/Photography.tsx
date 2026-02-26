@@ -129,57 +129,52 @@ export function Photography() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 md:p-12"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 md:p-16"
+            style={{
+              backgroundColor: "rgba(65, 65, 65, 0.95)",
+            }}
             onClick={() => setSelectedPhoto(null)}
           >
-            <button
-              className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors"
-              onClick={(e) => { e.stopPropagation(); setSelectedPhoto(null); }}
-            >
-              <X className="w-8 h-8" />
-            </button>
-
             <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              className="max-w-5xl w-full flex flex-col md:flex-row gap-8 items-center"
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="relative w-full max-w-5xl aspect-[4/3] md:aspect-[16/9] rounded-2xl overflow-hidden shadow-2xl bg-[var(--color-cream)] dark:bg-[#1a1f1c] flex outline-none border border-[var(--color-gold)]/20"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex-1 w-full relative">
-                <img
-                  src={selectedPhoto.url}
-                  alt={selectedPhoto.caption}
-                  className="w-full h-auto max-h-[80vh] object-contain shadow-2xl"
-                />
-              </div>
+              <img
+                src={selectedPhoto.url}
+                alt={selectedPhoto.caption}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
 
-              <div className="w-full md:w-80 bg-[var(--color-cream)] dark:bg-[var(--color-dark-bg)] p-8 shadow-xl border border-[var(--color-gold)]/20">
-                <h3 className="font-handwriting text-3xl text-[var(--color-accent)] mb-6">
-                  {selectedPhoto.caption}
-                </h3>
+              {/* Subtle gradient overlay just for text readability at the bottom */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-cream)]/90 via-[var(--color-cream)]/30 dark:from-[#1a1f1c]/90 dark:via-[#1a1f1c]/30 to-transparent" />
 
-                <div className="space-y-4 font-code text-sm text-[var(--color-text)]/80 dark:text-[var(--color-dark-text)]/80">
-                  <div className="flex justify-between border-b border-[var(--color-gold)]/20 pb-2">
-                    <span className="opacity-60">Camera</span>
-                    <span>{selectedPhoto.camera}</span>
+              {/* Bottom Content Area */}
+              <div className="absolute inset-x-0 bottom-0 p-6 md:p-10 flex cursor-auto flex-col sm:flex-row sm:items-end justify-between gap-6">
+                <div className="flex flex-col gap-1.5 md:gap-2 text-left">
+                  <span className="text-[var(--color-text)]/70 dark:text-[var(--color-dark-text)]/70 text-xs md:text-sm tracking-[0.15em] uppercase font-body font-semibold">
+                    {selectedPhoto.category}
+                  </span>
+                  <h2 className="text-2xl md:text-4xl lg:text-5xl font-body font-bold text-[var(--color-text)] dark:text-[var(--color-dark-text)] leading-none tracking-tight mb-2">
+                    {selectedPhoto.caption}
+                  </h2>
+                  <div className="flex items-center gap-2 text-[var(--color-text)]/80 dark:text-[var(--color-dark-text)]/80 text-sm md:text-base font-body">
+                    <span className="text-red-500 drop-shadow-md text-base md:text-lg -mt-0.5">📍</span>
+                    <span>{selectedPhoto.location}</span>
                   </div>
-                  <div className="flex justify-between border-b border-[var(--color-gold)]/20 pb-2">
-                    <span className="opacity-60">Lens</span>
-                    <span>{selectedPhoto.focalLength}</span>
-                  </div>
-                  <div className="flex justify-between border-b border-[var(--color-gold)]/20 pb-2">
-                    <span className="opacity-60">Aperture</span>
-                    <span>{selectedPhoto.aperture}</span>
-                  </div>
-                  <div className="flex justify-between border-b border-[var(--color-gold)]/20 pb-2">
-                    <span className="opacity-60">ISO</span>
-                    <span>{selectedPhoto.iso}</span>
-                  </div>
-                  <div className="flex justify-between border-b border-[var(--color-gold)]/20 pb-2">
-                    <span className="opacity-60">Category</span>
-                    <span>{selectedPhoto.category}</span>
-                  </div>
+                </div>
+
+                <div className="flex-shrink-0">
+                  <button
+                    type="button"
+                    className="bg-[var(--color-text)] hover:bg-[var(--color-accent)] text-[var(--color-cream)] dark:bg-[var(--color-dark-text)] dark:hover:bg-[var(--color-accent)] dark:text-[#1a1f1c] px-6 md:px-8 py-2 md:py-2.5 rounded-full font-medium transition-colors shadow-lg font-body text-sm md:text-base focus:outline-none focus:ring-4 focus:ring-[var(--color-accent)]/20"
+                    onClick={() => setSelectedPhoto(null)}
+                  >
+                    Close
+                  </button>
                 </div>
               </div>
             </motion.div>

@@ -9,7 +9,7 @@ export const config = {
   resumeUrl: "/resume.pdf",
   socials: {
     github: "https://github.com/nileshyadavme",
-    linkedin: "https://linkedin.com",
+    linkedin: "https://linkedin.com/",
     twitter: "https://twitter.com",
     email: "mailto:hello@example.com",
   },

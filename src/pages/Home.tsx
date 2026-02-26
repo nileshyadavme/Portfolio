@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import { ArrowRight, FileText } from "lucide-react";
 import { Squiggle } from "../components/Squiggle";
 import { Polaroid } from "../components/Polaroid";
-import { StickyNote } from "../components/StickyNote";
 import { ResumeModal } from "../components/ResumeModal";
 
 export function Home() {
@@ -57,7 +56,7 @@ export function Home() {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
-              className="flex md:hidden justify-center my-8"
+              className="flex md:hidden justify-center my-8 relative"
             >
               <Polaroid
                 src={config.heroImage}
@@ -65,6 +64,17 @@ export function Home() {
                 rotation={-2}
                 className="w-64 sm:w-72"
               />
+              {/* Responsive "Currently building" indicator for mobile */}
+              <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-max bg-[var(--color-cream)] dark:bg-[#2A1F18] border border-[var(--color-gold)]/30 shadow-lg p-3 rounded-xl flex items-center gap-3 z-10">
+                <div className="relative flex h-2.5 w-2.5 flex-shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500" />
+                </div>
+                <div className="flex flex-col text-left">
+                  <span className="text-[10px] font-code text-[var(--color-text)]/50 dark:text-[var(--color-dark-text)]/50 uppercase tracking-widest mb-0.5">Currently Building</span>
+                  <span className="font-display font-semibold text-sm leading-tight text-[var(--color-text)] dark:text-[var(--color-dark-text)] max-w-[200px] truncate">{config.currently.building.name}</span>
+                </div>
+              </div>
             </motion.div>
 
             <motion.p
@@ -113,12 +123,17 @@ export function Home() {
               className="w-80"
             />
 
-            {/* Sticky note — positioned relative to the photo on lg */}
-            <div className="absolute -top-6 -right-4 hidden lg:block">
-              <StickyNote color="yellow" rotation={3} className="w-44">
-                <p>Currently building: {config.currently.building.name}</p>
-              </StickyNote>
-            </div>
+            {/* Responsive "Currently building" indicator */}
+            {/* <div className="absolute bottom-6 -left-8 lg:-left-12 bg-[var(--color-cream)] dark:bg-[#2A1F18] border border-[var(--color-gold)]/30 shadow-xl p-3 lg:p-4 rounded-xl flex items-center gap-3 z-10 transition-transform hover:-translate-y-1">
+              <div className="relative flex h-3 w-3 flex-shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500" />
+              </div>
+              <div className="flex flex-col text-left">
+                <span className="text-[10px] lg:text-xs font-code text-[var(--color-text)]/50 dark:text-[var(--color-dark-text)]/50 uppercase tracking-widest mb-0.5">Currently Building</span>
+                <span className="font-display font-semibold text-sm lg:text-base leading-tight text-[var(--color-text)] dark:text-[var(--color-dark-text)] max-w-[200px] lg:max-w-[280px] break-words">{config.currently.building.name}</span>
+              </div>
+            </div> */}
           </motion.div>
 
         </div>

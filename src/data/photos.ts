@@ -8,6 +8,7 @@ export const photos = [
     focalLength: "23mm",
     aperture: "f/2.0",
     iso: "320",
+    location: "Studio 1, New York",
     rotation: -2,
   },
   {
@@ -19,6 +20,7 @@ export const photos = [
     focalLength: "90mm",
     aperture: "f/2.8",
     iso: "100",
+    location: "Workbench 42",
     rotation: 1,
   },
   {
@@ -30,6 +32,7 @@ export const photos = [
     focalLength: "23mm",
     aperture: "f/4.0",
     iso: "800",
+    location: "Downtown LA",
     rotation: -1,
   },
   {
@@ -41,6 +44,7 @@ export const photos = [
     focalLength: "26mm",
     aperture: "f/1.5",
     iso: "50",
+    location: "Swiss Alps",
     rotation: 2,
   },
 ];
