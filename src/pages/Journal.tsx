@@ -1,9 +1,10 @@
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
 import { journalPosts } from "../data/journal";
 import { Squiggle } from "../components/Squiggle";
 import { Link } from "react-router-dom";
-import { Search } from "lucide-react";
+import { Search, ArrowLeft } from "lucide-react";
+import { FolderCard } from "../components/FolderCard";
 
 export function Journal() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -25,6 +26,21 @@ export function Journal() {
     const matchesTag = selectedTag === null || post.tags.includes(selectedTag);
 
     return matchesSearch && matchesTag;
+  });
+
+  const isFolderView = selectedTag === null && searchQuery === "";
+
+  // Generate folder data from tags
+  const folders = allTags.map(tag => {
+    const postCount = journalPosts.filter(p => p.tags.includes(tag)).length;
+    return {
+      id: tag,
+      title: `#${tag}`,
+      coverUrl: `https://picsum.photos/seed/${tag}/600/400`,
+      count: postCount,
+      category: 'Tag',
+      date: 'Various'
+    };
   });
 
   return (
@@ -65,96 +81,143 @@ export function Journal() {
           />
         </div>
 
-        {/* Tags Filter */}
-        <div className="flex flex-wrap gap-2 mb-12">
-          <button
-            onClick={() => setSelectedTag(null)}
-            className={`font-code text-xs px-3 py-1.5 rounded-full transition-colors ${selectedTag === null
-              ? "bg-[var(--color-accent)] text-white dark:text-[#2A1F18]"
-              : "bg-[var(--color-gold)]/10 text-[var(--color-text)]/60 dark:text-[var(--color-dark-text)]/60 hover:bg-[var(--color-gold)]/20 hover:text-[var(--color-text)] dark:hover:text-[var(--color-dark-text)]"
-              }`}
-          >
-            All Entries
-          </button>
-          {allTags.map((tag) => (
-            <button
-              key={tag}
-              onClick={() => setSelectedTag(tag === selectedTag ? null : tag)}
-              className={`font-code text-xs px-3 py-1.5 rounded-full transition-colors ${selectedTag === tag
-                ? "bg-[var(--color-accent)] text-white dark:text-[#2A1F18]"
-                : "bg-[var(--color-gold)]/10 text-[var(--color-text)]/60 dark:text-[var(--color-dark-text)]/60 hover:bg-[var(--color-gold)]/20 hover:text-[var(--color-text)] dark:hover:text-[var(--color-dark-text)]"
-                }`}
-            >
-              #{tag}
-            </button>
-          ))}
-        </div>
-
-        <div className="space-y-16">
-          {filteredPosts.length > 0 ? (
-            filteredPosts.map((post, index) => (
-              <motion.article
-                key={post.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="group relative pl-8 border-l-2 border-[var(--color-gold)]/30 hover:border-[var(--color-accent)] transition-colors"
-              >
-                <div className="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-[var(--color-bg)] dark:bg-[var(--color-dark-bg)] border-2 border-[var(--color-gold)] group-hover:border-[var(--color-accent)] transition-colors" />
-
-                <div className="flex flex-wrap items-center gap-4 text-sm font-code text-[var(--color-text)]/50 dark:text-[var(--color-dark-text)]/50 mb-4">
-                  <time>{post.date}</time>
-                  <span>•</span>
-                  <span>{post.readTime} min read</span>
-                  <span>•</span>
-                  <span className="text-[var(--color-accent)]">
-                    {post.category}
-                  </span>
-                </div>
-
-                <Link to={`/journal/${post.id}`} className="block">
-                  <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 group-hover:text-[var(--color-accent)] transition-colors">
-                    {post.title}
-                  </h2>
-                  <p className="font-body text-lg text-[var(--color-text)]/80 dark:text-[var(--color-dark-text)]/80 leading-relaxed max-w-3xl mb-6">
-                    {post.excerpt}
-                  </p>
-                </Link>
-
-                <div className="flex gap-2">
-                  {post.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="font-code text-xs px-2 py-1 bg-[var(--color-gold)]/10 text-[var(--color-text)]/60 dark:text-[var(--color-dark-text)]/60 rounded-sm"
-                    >
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-              </motion.article>
-            ))
-          ) : (
+        {/* View Transition Area */}
+        <AnimatePresence mode="popLayout">
+          {isFolderView ? (
+            // FOLDER GRID VIEW
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="py-12 text-center"
+              key="folder-view"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mx-auto max-w-6xl"
             >
-              <p className="font-handwriting text-2xl text-[var(--color-text)]/50 dark:text-[var(--color-dark-text)]/50">
-                No journal entries found matching {searchQuery ? `"${searchQuery}"` : "your filters"}
-              </p>
-              <button
-                onClick={() => {
-                  setSearchQuery("");
-                  setSelectedTag(null);
-                }}
-                className="mt-6 font-display text-lg text-[var(--color-accent)] hover:underline decoration-wavy underline-offset-4"
-              >
-                Clear filters
-              </button>
+              {folders.map((folder, index) => (
+                <motion.div
+                  key={folder.id}
+                  initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{
+                    opacity: { duration: 0.3, delay: index * 0.1 },
+                    scale: { duration: 0.3, delay: index * 0.1 },
+                    y: { duration: 0.3, delay: index * 0.1 }
+                  }}
+                >
+                  <FolderCard
+                    title={folder.title}
+                    coverUrl={folder.coverUrl}
+                    count={folder.count}
+                    category={folder.category}
+                    date={folder.date}
+                    onClick={() => setSelectedTag(folder.id)}
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
+          ) : (
+            // LIST VIEW
+            <motion.div
+              key="list-view"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="space-y-16"
+            >
+              {/* Header for List View */}
+              {selectedTag && (
+                <div className="flex items-center gap-4 mb-4">
+                  <button
+                    onClick={() => setSelectedTag(null)}
+                    className="p-2 rounded-full hover:bg-[var(--color-gold)]/10 text-[var(--color-text)]/60 hover:text-[var(--color-accent)] transition-colors"
+                  >
+                    <ArrowLeft className="w-5 h-5" />
+                  </button>
+                  <h3 className="text-2xl font-display font-bold">
+                    Entries in <span className="text-[var(--color-accent)]">#{selectedTag}</span>
+                  </h3>
+                </div>
+              )}
+
+              {searchQuery && (
+                <div className="mb-4 text-[var(--color-text)]/60 font-code text-sm">
+                  Search results for: <span className="text-[var(--color-accent)] font-bold">"{searchQuery}"</span>
+                </div>
+              )}
+
+              <div className="space-y-16">
+                {filteredPosts.length > 0 ? (
+                  filteredPosts.map((post, index) => (
+                    <motion.article
+                      key={post.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1 }}
+                      className="group relative pl-8 border-l-2 border-[var(--color-gold)]/30 hover:border-[var(--color-accent)] transition-colors"
+                    >
+                      <div className="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-[var(--color-bg)] dark:bg-[var(--color-dark-bg)] border-2 border-[var(--color-gold)] group-hover:border-[var(--color-accent)] transition-colors" />
+
+                      <div className="flex flex-wrap items-center gap-4 text-sm font-code text-[var(--color-text)]/50 dark:text-[var(--color-dark-text)]/50 mb-4">
+                        <time>{post.date}</time>
+                        <span>•</span>
+                        <span>{post.readTime} min read</span>
+                        <span>•</span>
+                        <span className="text-[var(--color-accent)]">
+                          {post.category}
+                        </span>
+                      </div>
+
+                      <Link to={`/journal/${post.id}`} className="block">
+                        <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 group-hover:text-[var(--color-accent)] transition-colors">
+                          {post.title}
+                        </h2>
+                        <p className="font-body text-lg text-[var(--color-text)]/80 dark:text-[var(--color-dark-text)]/80 leading-relaxed max-w-3xl mb-6">
+                          {post.excerpt}
+                        </p>
+                      </Link>
+
+                      <div className="flex gap-2">
+                        {post.tags.map((tag) => (
+                          <button
+                            key={tag}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setSelectedTag(tag);
+                              setSearchQuery("");
+                            }}
+                            className="font-code cursor-pointer text-xs px-2 py-1 bg-[var(--color-gold)]/10 text-[var(--color-text)]/60 dark:text-[var(--color-dark-text)]/60 hover:text-[var(--color-text)] hover:bg-[var(--color-gold)]/30 rounded-sm transition-colors"
+                          >
+                            #{tag}
+                          </button>
+                        ))}
+                      </div>
+                    </motion.article>
+                  ))
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="py-12 text-center"
+                  >
+                    <p className="font-handwriting text-2xl text-[var(--color-text)]/50 dark:text-[var(--color-dark-text)]/50">
+                      No journal entries found matching {searchQuery ? `"${searchQuery}"` : "your filters"}
+                    </p>
+                    <button
+                      onClick={() => {
+                        setSearchQuery("");
+                        setSelectedTag(null);
+                      }}
+                      className="mt-6 font-display text-lg text-[var(--color-accent)] hover:underline decoration-wavy underline-offset-4"
+                    >
+                      Clear filters
+                    </button>
+                  </motion.div>
+                )}
+              </div>
             </motion.div>
           )}
-        </div>
+        </AnimatePresence>
       </section>
     </div>
   );

@@ -4,7 +4,7 @@ export const config = {
   bio: "I design and build Machine learning system for real world imapact. I believe code is a medium for expression, just like paint or ink.",
   availability: "Open to opportunities",
   // Replace with your own photo — can be a local path or URL
-  heroImage: "https://picsum.photos/seed/nilesh/600/800",
+  heroImage: "assets/1.jpeg",
   // Replace with the path or URL to your resume PDF
   resumeUrl: "/resume.pdf",
   socials: {

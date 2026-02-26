@@ -35,7 +35,7 @@ export function FolderCard({
             <div className="absolute top-4 right-4 flex items-center gap-2">
                 <span className="bg-black/40 backdrop-blur-md text-white text-xs px-2.5 py-1 rounded-full font-code border border-white/10 flex items-center gap-1.5 shadow-sm">
                     <FolderHeart className="w-3.5 h-3.5" />
-                    {count} {count === 1 ? 'photo' : 'photos'}
+                    {count} {count === 1 ? 'project' : 'projects'}
                 </span>
             </div>
 
