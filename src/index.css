@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:wght@400;700&display=swap');
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Class-based dark mode: respond to body.dark class, not media query */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-bg: #F8F3E6;
+  --color-text: #2C241B;
+  --color-accent: #D96C2B;
+  --color-secondary: #E89A5E;
+  --color-gold: #E5DCCB;
+  --color-cream: #FFFFFF;
+
+  --color-dark-bg: #2C241B;
+  --color-dark-text: #F8F3E6;
+
+  --font-display: "Inter", system-ui, sans-serif;
+  --font-handwriting: "Playfair Display", serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-code: "JetBrains Mono", monospace;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+  position: relative;
+}
+
+body.dark {
+  background-color: var(--color-dark-bg);
+  color: var(--color-dark-text);
+}
+
+/* Subtle dot pattern */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: -2;
+  background-image: radial-gradient(var(--color-gold) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.6;
+}
+
+body.dark::before {
+  opacity: 0.1;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold);
+  border-radius: 4px;
+}
+body.dark ::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+}
+
+/* Typography utilities */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+}
+.font-handwriting {
+  font-family: var(--font-handwriting);
+  font-style: italic;
+  letter-spacing: 0;
+}
+.font-body {
+  font-family: var(--font-body);
+}
+.font-code {
+  font-family: var(--font-code);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Markdown styles */
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3 {
+  font-family: var(--font-display);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  letter-spacing: -0.03em;
+}
+.markdown-body p {
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+}
+.markdown-body a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-style: solid;
+  text-underline-offset: 4px;
+}
