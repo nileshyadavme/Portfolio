@@ -4,18 +4,40 @@ import { ScrollToTop } from "./components/ScrollToTop";
 import { Layout } from "./components/Layout";
 
 // Code split all pages so each is its own JS chunk.
-// They are only loaded when the user navigates to that route.
-// The Suspense boundary lives in Layout.tsx — NOT here — to avoid
-// conflicting with AnimatePresence page transitions.
-const Home = lazy(() => import("./pages/Home").then(m => ({ default: m.Home })));
-const About = lazy(() => import("./pages/About").then(m => ({ default: m.About })));
-const Projects = lazy(() => import("./pages/Projects").then(m => ({ default: m.Projects })));
-const Journal = lazy(() => import("./pages/Journal").then(m => ({ default: m.Journal })));
-const JournalPost = lazy(() => import("./pages/JournalPost").then(m => ({ default: m.JournalPost })));
-const Photography = lazy(() => import("./pages/Photography").then(m => ({ default: m.Photography })));
-const Contact = lazy(() => import("./pages/Contact").then(m => ({ default: m.Contact })));
-const Links = lazy(() => import("./pages/Links").then(m => ({ default: m.Links })));
-const Books = lazy(() => import("./pages/Books").then(m => ({ default: m.Books })));
+// Each import() is fired IMMEDIATELY (preload) so the module cache is warm
+// before the user navigates. This prevents the blank-page bug caused by
+// AnimatePresence mode="wait" holding the old page while Suspense delays
+// the new page's mount.
+const preloadHome = () => import("./pages/Home").then(m => ({ default: m.Home }));
+const preloadAbout = () => import("./pages/About").then(m => ({ default: m.About }));
+const preloadProjects = () => import("./pages/Projects").then(m => ({ default: m.Projects }));
+const preloadJournal = () => import("./pages/Journal").then(m => ({ default: m.Journal }));
+const preloadJournalPost = () => import("./pages/JournalPost").then(m => ({ default: m.JournalPost }));
+const preloadPhotography = () => import("./pages/Photography").then(m => ({ default: m.Photography }));
+const preloadContact = () => import("./pages/Contact").then(m => ({ default: m.Contact }));
+const preloadLinks = () => import("./pages/Links").then(m => ({ default: m.Links }));
+const preloadBooks = () => import("./pages/Books").then(m => ({ default: m.Books }));
+
+// Kick off all preloads immediately at module load time
+preloadHome();
+preloadAbout();
+preloadProjects();
+preloadJournal();
+preloadJournalPost();
+preloadPhotography();
+preloadContact();
+preloadLinks();
+preloadBooks();
+
+const Home = lazy(preloadHome);
+const About = lazy(preloadAbout);
+const Projects = lazy(preloadProjects);
+const Journal = lazy(preloadJournal);
+const JournalPost = lazy(preloadJournalPost);
+const Photography = lazy(preloadPhotography);
+const Contact = lazy(preloadContact);
+const Links = lazy(preloadLinks);
+const Books = lazy(preloadBooks);
 
 // Fallback for /links only (outside of Layout, which has its own Suspense)
 function PageLoader() {
