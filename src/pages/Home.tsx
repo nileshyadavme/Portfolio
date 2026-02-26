@@ -8,6 +8,7 @@ import { ArrowRight, FileText } from "lucide-react";
 import { Squiggle } from "../components/Squiggle";
 import { Polaroid } from "../components/Polaroid";
 import { ResumeModal } from "../components/ResumeModal";
+import { CodingStats } from "../components/CodingStats";
 
 export function Home() {
   const recentProjects = projects.slice(0, 2);
@@ -17,7 +18,7 @@ export function Home() {
   return (
     <div className="space-y-24">
       {/* Hero Section */}
-      <section className="relative pt-12 md:pt-24">
+      <section className="relative pt-0 md:pt-24">
         <div className="flex flex-col-reverse md:flex-row md:items-center gap-12 md:gap-16">
 
           {/* Left — Text */}
@@ -46,7 +47,7 @@ export function Home() {
               className="font-display text-5xl md:text-7xl font-bold leading-tight mb-6"
             >
               Hi, I'm {config.name.split(" ")[0]}.<br />
-              <span className="text-[var(--color-accent)] italic font-light">
+              <span className="text-[var(--color-accent)] text-5xl italic font-light">
                 {config.role}
               </span>
             </motion.h1>
@@ -65,7 +66,7 @@ export function Home() {
                 className="w-64 sm:w-72"
               />
               {/* Responsive "Currently building" indicator for mobile */}
-              <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-max bg-[var(--color-cream)] dark:bg-[#2A1F18] border border-[var(--color-gold)]/30 shadow-lg p-3 rounded-xl flex items-center gap-3 z-10">
+              {/* <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-max bg-[var(--color-cream)] dark:bg-[#2A1F18] border border-[var(--color-gold)]/30 shadow-lg p-3 rounded-xl flex items-center gap-3 z-10">
                 <div className="relative flex h-2.5 w-2.5 flex-shrink-0">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500" />
@@ -74,14 +75,14 @@ export function Home() {
                   <span className="text-[10px] font-code text-[var(--color-text)]/50 dark:text-[var(--color-dark-text)]/50 uppercase tracking-widest mb-0.5">Currently Building</span>
                   <span className="font-display font-semibold text-sm leading-tight text-[var(--color-text)] dark:text-[var(--color-dark-text)] max-w-[200px] truncate">{config.currently.building.name}</span>
                 </div>
-              </div>
+              </div> */}
             </motion.div>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-xl md:text-2xl text-[var(--color-text)]/80 dark:text-[var(--color-dark-text)]/80 font-body leading-relaxed mb-10"
+              className="text-xl md:text-2xl text-[var(--color-text)]/80 dark:text-[var(--color-dark-text)]/80 font-body leading-relaxed mb-4"
             >
               {config.bio}
             </motion.p>
@@ -204,6 +205,11 @@ export function Home() {
           </Link>
         </div>
       </section>
+
+      <Squiggle className="text-[var(--color-secondary)]" />
+
+      {/* Coding Stats Section */}
+      <CodingStats />
 
       <Squiggle className="text-[var(--color-secondary)]" />
 
