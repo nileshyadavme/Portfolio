@@ -1,6 +1,6 @@
 export const config = {
-  name: "Alex Maker",
-  role: "Builder, Tinkerer, Dreamer",
+  name: "Nilesh",
+  role: "Desing, Build, Deploy",
   bio: "I build digital tools with a focus on craft and clarity. I believe code is a medium for expression, just like paint or ink.",
   availability: "Open to opportunities",
   // Replace with your own photo — can be a local path or URL
@@ -15,14 +15,13 @@ export const config = {
   },
   currently: {
     reading: {
-      title: "The Design of Everyday Things",
-      author: "Don Norman",
-      cover: "https://picsum.photos/seed/book1/200/300",
+      title: "Beyond Good and Evil",
+      author: "Nietzsche",
+      cover: "",
     },
     building: {
-      name: "SaaS Starter Kit",
-      description: "A Next.js boilerplate for creatives.",
+      name: "Ai Resume Analyzer",
+      description: "AI-powered resume analysis and optimization tool.",
     },
-    listening: { track: "Clair de Lune", artist: "Claude Debussy" },
   },
 };

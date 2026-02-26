@@ -108,7 +108,6 @@ function CurrentlyCard() {
           {[
             { label: "Building", value: config.currently.building.name },
             { label: "Reading", value: config.currently.reading.title },
-            { label: "Listening", value: config.currently.listening.track },
           ].map(({ label, value }) => (
             <div key={label} className="flex flex-shrink-0 items-start gap-2 min-w-0">
               <span className="font-code text-xs text-[var(--color-text)]/40 dark:text-[var(--color-dark-text)]/40 w-16 flex-shrink-0 mt-[1px]">{label}</span>
