@@ -42,7 +42,7 @@ export function GitHubHeatmap({ username }: { username: string }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`)
+        fetch(`https://github-contributions-api.jogruber.de/v4/nileshyadavme?y=last`)
             .then(r => r.json())
             .then((data: ApiResponse) => {
                 setWeeks(buildWeeks(data.contributions));
