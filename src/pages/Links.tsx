@@ -62,10 +62,19 @@ function ProfileCard() {
       className="col-span-2 row-span-2 flex flex-col items-center justify-center text-center gap-3 p-4"
       delay={0}
     >
+      {/* 
+        w-20 h-20 = 80×80px. Explicit width+height prevent the browser from
+        reflowing the layout when the image arrives. eager loading because
+        this is the hero image — always above the fold on /links.
+      */}
       <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-[var(--color-gold)]/40 p-0.5 flex-shrink-0">
         <img
           src={config.heroImage}
           alt={config.name}
+          width={80}
+          height={80}
+          loading="eager"
+          decoding="async"
           className="w-full h-full object-cover rounded-full"
         />
       </div>
@@ -75,7 +84,9 @@ function ProfileCard() {
       </div>
       {config.availability && (
         <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-green-500/30 bg-green-500/10 font-code text-xs text-green-700 dark:text-green-400">
-          <span className="relative flex h-2 w-2">
+          {/* contain:strict keeps the ping animation inside its own stacking context
+              so it can't shift surrounding elements */}
+          <span className="relative flex h-2 w-2" style={{ contain: "strict" }}>
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
           </span>

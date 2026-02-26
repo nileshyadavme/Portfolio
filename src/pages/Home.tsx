@@ -31,7 +31,7 @@ export function Home() {
                 transition={{ delay: 0.05 }}
                 className="inline-flex items-center gap-2.5 mb-6 px-4 py-2 rounded-full border border-green-500/30 bg-green-500/10 dark:bg-green-500/10"
               >
-                <span className="relative flex h-2.5 w-2.5">
+                <span className="relative flex h-2.5 w-2.5" style={{ contain: "strict" }}>
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
                 </span>

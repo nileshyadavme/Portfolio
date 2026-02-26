@@ -7,6 +7,8 @@ interface FolderCardProps {
     category: string;
     date: string;
     onClick: () => void;
+    /** Pass true for above-the-fold cards to eagerly load them */
+    priority?: boolean;
 }
 
 export function FolderCard({
@@ -16,15 +18,25 @@ export function FolderCard({
     category,
     date,
     onClick,
+    priority = false,
 }: FolderCardProps) {
     return (
         <div
             onClick={onClick}
             className="group cursor-pointer relative w-full aspect-[4/3] rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-[var(--color-gold)]/20 bg-[var(--color-cream)] dark:bg-[#1a1f1c]"
         >
+            {/* 
+              width/height tell the browser the intrinsic size BEFORE the image loads,
+              so it can reserve the exact space — eliminating the most common CLS cause.
+              The absolute+inset-0 positioning means the rendered size is still 100%×100%.
+            */}
             <img
                 src={coverUrl}
                 alt={title}
+                width={800}
+                height={600}
+                decoding="async"
+                loading={priority ? "eager" : "lazy"}
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
 
