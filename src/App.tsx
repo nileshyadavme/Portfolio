@@ -5,6 +5,8 @@ import { Layout } from "./components/Layout";
 
 // Code split all pages so each is its own JS chunk.
 // They are only loaded when the user navigates to that route.
+// The Suspense boundary lives in Layout.tsx — NOT here — to avoid
+// conflicting with AnimatePresence page transitions.
 const Home = lazy(() => import("./pages/Home").then(m => ({ default: m.Home })));
 const About = lazy(() => import("./pages/About").then(m => ({ default: m.About })));
 const Projects = lazy(() => import("./pages/Projects").then(m => ({ default: m.Projects })));
@@ -15,7 +17,7 @@ const Contact = lazy(() => import("./pages/Contact").then(m => ({ default: m.Con
 const Links = lazy(() => import("./pages/Links").then(m => ({ default: m.Links })));
 const Books = lazy(() => import("./pages/Books").then(m => ({ default: m.Books })));
 
-// Lightweight fallback shown while a chunk is loading
+// Fallback for /links only (outside of Layout, which has its own Suspense)
 function PageLoader() {
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -29,6 +31,7 @@ export default function App() {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
+        {/* /links is outside Layout so it needs its own Suspense */}
         <Route
           path="/links"
           element={
@@ -41,18 +44,17 @@ export default function App() {
           path="/*"
           element={
             <Layout>
-              <Suspense fallback={<PageLoader />}>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/projects" element={<Projects />} />
-                  <Route path="/journal" element={<Journal />} />
-                  <Route path="/journal/:id" element={<JournalPost />} />
-                  <Route path="/books" element={<Books />} />
-                  <Route path="/photography" element={<Photography />} />
-                  <Route path="/contact" element={<Contact />} />
-                </Routes>
-              </Suspense>
+              {/* Suspense is handled inside Layout.tsx above AnimatePresence */}
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/journal" element={<Journal />} />
+                <Route path="/journal/:id" element={<JournalPost />} />
+                <Route path="/books" element={<Books />} />
+                <Route path="/photography" element={<Photography />} />
+                <Route path="/contact" element={<Contact />} />
+              </Routes>
             </Layout>
           }
         />

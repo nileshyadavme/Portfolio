@@ -1,77 +1,183 @@
-# My Portfolio - Developer Guide
+<div align="center">
 
-Welcome to the codebase for my portfolio! This guide is designed to help you understand how the code is structured and how you can make changes easily, even if you are brand new to React and web development.
+# ✦ Nilesh — Personal Portfolio
 
-## Getting Started
+*Design · Build · Deploy*
 
-To run this website on your own computer:
+[![Built with React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=white)](https://react.dev)
+[![Powered by Vite](https://img.shields.io/badge/Vite-6-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-D96C2B?style=flat-square)](LICENSE)
 
-1. **Install dependencies:**
-   Make sure you have [Node.js](https://nodejs.org/) installed. Open a terminal (command prompt) in this project folder and run:
-   ```bash
-   npm install
-   ```
+</div>
 
-2. **Run the development server:**
-   ```bash
-   npm run dev
-   ```
-   Open your browser and navigate to the local server URL provided in the terminal (usually `http://localhost:3000`). Any changes you make to the code will automatically update in your browser instantly!
+---
 
-## Codebase Structure
+> *"I design and build Machine Learning systems for real-world impact. I believe code is a medium for expression, just like paint or ink."*
 
-The entire website lives inside the `src/` folder. Here is what each subfolder does:
+A handcrafted, dark-mode-first personal portfolio. Built with care, not a template. Every interaction has a reason.
 
-### 1. `src/data/` 📝 - **Change your content here!**
-If you just want to update the text, links, or images on your website, you usually **don't need to touch the React components**. All the data that powers the site is stored in simple TypeScript files here:
-- `config.ts`: General website settings (like your name, role, or email).
-- `projects.ts`: Your portfolio projects shown on the Projects page.
-- `experience.ts` / `resume.ts` / `timeline.ts`: Your work history, timeline, and resume details.
-- `photos.ts`: Images specifically for your Photography page.
-- `journal.ts`: Your blog or journal entries.
-- `books.ts`: Your reading list or favorite books.
+---
 
-**How to add a new project:** Open `src/data/projects.ts` and add a new entry to the list following the exact same format (title, description, image link, etc.) as the others.
+## ✨ Features
 
-### 2. `src/pages/` 📄 - **The pages of your website**
-Each file here represents a different page on your website (e.g., `Home.tsx`, `About.tsx`, `Contact.tsx`).
-- If you want to change the layout or add entirely new sections to a specific page, edit the corresponding `.tsx` file here.
-- These pages use React components (from the `src/components/` folder) to build the layout.
+| Section | Description |
+|---|---|
+| 🏠 **Home** | Hero with photo, coding stats (GitHub · LeetCode · Kaggle), recent work |
+| 👤 **About** | Animated skill bars, experience timeline, polaroid portrait |
+| 🔧 **Projects** | Folder-grid by tech stack → drill into project detail with gallery |
+| 📓 **Journal** | Markdown-powered blog, folder-grouped by tags |
+| 📚 **Library** | Reading list with star ratings and reading progress |
+| 📷 **Photography** | Photo folders with full EXIF data viewer |
+| 🔗 **Links** | Bento-grid link-in-bio page (`/links`) |
+| 📬 **Contact** | Contact form + social links |
+| 📄 **Resume** | In-page resume modal with PDF download |
 
-### 3. `src/components/` 🧩 - **Reusable UI pieces**
-This folder contains the smaller building blocks of your website. Instead of writing the same code over and over for every page, we create reusable components.
-- `Navigation.tsx` / `Footer.tsx`: The top bar and bottom section of your site.
-- `Button.tsx`: A button style you can use anywhere.
-- `ThemeToggle.tsx`: The dark/light mode switch.
-- `Layout.tsx`: The wrapper that keeps the Navigation and Footer visible on every single page.
-- Other fun bits like `Polaroid.tsx`, `StickyNote.tsx`, and `Squiggle.tsx` are unique design elements.
+**Design highlights:**
+- 🌗 Dark/light mode — class-based, FOUC-free, persisted to `localStorage`
+- 🎞️ Smooth animated page transitions with Framer Motion
+- ✨ Animated ambient background orbs
+- 📱 Fully responsive down to mobile
+- ⚡ Code-split routes + lazy-loaded Markdown for fast initial loads
+- 🟫 Warm typographic palette — Inter, Playfair Display, JetBrains Mono
 
-### 4. `src/App.tsx` & `src/main.tsx` 🚀 - **The starting point**
-- `main.tsx` is the entryway that takes your React code and injects it into the browser (`index.html`).
-- `App.tsx` handles the **Routing**. It acts as a map, telling the website which Page component to load based on the URL (e.g., loading `About.tsx` when the user goes to `/about`).
+---
 
-### 5. Styling with Tailwind CSS 🎨
-This project uses **[Tailwind CSS](https://tailwindcss.com/)** for styling. Instead of writing separate standard CSS files, you style elements by adding "classes" directly in the HTML/React code.
-- **Example:** `<div className="bg-blue-500 text-white p-4">` creates a blue box with white text and some padding (`p-4`).
-- Global base styles and font imports are located in `src/index.css`.
+## 🗂 Project Structure
 
-## How to Make Common Changes (Examples)
+```
+src/
+├── App.tsx               # Route map (code-split with React.lazy)
+├── index.css             # Design tokens, global styles
+│
+├── components/           # Reusable UI building blocks (15 components)
+│   ├── Layout.tsx        # Page shell — Nav, MotionBackground, Footer
+│   ├── FolderCard.tsx    # Photography / Journal / Projects folder card
+│   ├── ResumeModal.tsx   # In-page resume viewer
+│   ├── CodingStats.tsx   # GitHub + LeetCode + Kaggle stats
+│   └── ...
+│
+├── pages/                # One file = one route (9 pages)
+│   ├── Home.tsx
+│   ├── Journal.tsx
+│   ├── Projects.tsx
+│   └── ...
+│
+└── data/                 # ← Edit your content here
+    ├── config.ts         # Your name, bio, socials, hero image
+    ├── projects.ts       # Project list
+    ├── experience.ts     # Work history + skills
+    ├── resume.ts         # Resume modal content
+    ├── books.ts          # Reading list
+    ├── photos.ts         # Photography folders
+    ├── coding.ts         # GitHub / LeetCode / Kaggle stats
+    └── journals/         # ← Add new blog posts here as .md files
+        ├── slow-coding.md
+        └── your-new-post.md
+```
 
-**Scenario 1: I want to update my email address.**
-- Look in `src/data/config.ts` or `src/pages/Contact.tsx`. Update the text, save the file, and watch the browser update.
+---
 
-**Scenario 2: I want to add a new link to the Navigation bar.**
-- Open `src/components/Navigation.tsx`. Find the list of links and add a new one. Then, make sure you configure the route in `src/App.tsx` and create the new page in `src/pages/` if it doesn't exist yet.
+## 🚀 Getting Started
 
-**Scenario 3: I want to change a color.**
-- Find the component or page you want to modify. Look at the `className="..."` attribute and change the Tailwind classes (e.g., change `text-gray-500` to `text-red-500`).
+```bash
+# 1. Clone the repo
+git clone https://github.com/nileshyadavme/portfolio.git
+cd portfolio
 
-## Key Technologies Used
-- **[React](https://react.dev/)**: The core UI library.
-- **[Vite](https://vitejs.dev/)**: The lightning-fast build tool matching `npm run dev`.
-- **[React Router](https://reactrouter.com/)**: For navigating between pages without refreshing the browser.
-- **[Tailwind CSS](https://tailwindcss.com/)**: For styling components quickly.
-- **[Framer Motion](https://www.framer.com/motion/)**: For smooth, dynamic animations (used in `MotionBackground.tsx`, page transitions, etc.).
-- **[Lucide React](https://lucide.dev/)**: An icon library for all the little icons across the site.
+# 2. Install dependencies
+npm install
 
-Welcome to web development! Have fun exploring and customizing your portfolio!
+# 3. Start the dev server
+npm run dev
+```
+
+Open `http://localhost:5173` — changes hot-reload instantly.
+
+---
+
+## ✏️ Making It Your Own
+
+### Update site info
+Edit [`src/data/config.ts`](src/data/config.ts):
+```ts
+export const config = {
+  name: "Your Name",
+  role: "Your tagline",
+  bio: "...",
+  heroImage: "assets/your-photo.jpg",
+  socials: {
+    github: "https://github.com/you",
+    // ...
+  },
+};
+```
+
+### Add a journal post
+Just drop a `.md` file into `src/data/journals/`. No code changes needed.
+
+```markdown
+---
+title: "My New Post"
+date: "2026-03-01"
+category: "Craft"
+tags: ["writing", "ideas"]
+excerpt: "A short summary shown in the list view."
+readTime: 4
+---
+
+Your content goes here in **Markdown**.
+```
+
+### Add a project
+Add an entry to [`src/data/projects.ts`](src/data/projects.ts) — the folder grid auto-generates from `techStack`.
+
+### Add a photo folder
+Add an entry to [`src/data/photos.ts`](src/data/photos.ts).
+
+---
+
+## 🛠 Tech Stack
+
+| | |
+|---|---|
+| **Framework** | React 19 |
+| **Build Tool** | Vite 6 |
+| **Language** | TypeScript |
+| **Styling** | Tailwind CSS v4 + Vanilla CSS |
+| **Animation** | Framer Motion (`motion/react`) |
+| **Routing** | React Router DOM v7 |
+| **Markdown** | `react-markdown` + `remark-math` + `rehype-katex` |
+| **Icons** | Lucide React |
+| **Fonts** | Inter · Playfair Display · JetBrains Mono |
+| **Analytics** | Vercel Speed Insights |
+
+---
+
+## 📦 Build & Deploy
+
+```bash
+# Production build
+npm run build
+
+# Preview production build locally
+npm run preview
+```
+
+Output goes to `dist/`. Deploy to **[Vercel](https://vercel.com)** or **[Netlify](https://netlify.com)** — just point it at the repo and it works instantly.
+
+---
+
+## 📄 License
+
+MIT — use it, fork it, make it yours. If you do, a ⭐ on the repo is always appreciated.
+
+---
+
+<div align="center">
+
+Made with ☕ + sawdust · [nileshyadavme](https://github.com/nileshyadavme)
+
+</div>
+
