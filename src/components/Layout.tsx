@@ -23,17 +23,18 @@ export function Layout({ children }: { children: ReactNode }) {
       <Navigation />
       <ThemeToggle />
       {/*
-        AnimatePresence WITHOUT mode="wait" (default = "sync"):
-        Enter and exit happen simultaneously, so the new page mounts immediately
-        on route change. This prevents the blank-page bug where mode="wait" held
-        the old page in place while React.lazy/Suspense delayed the new page's
-        mount — causing AnimatePresence to lose track of the entering motion.main.
+        mode="popLayout": the exiting motion.main is immediately taken out of
+        normal document flow (given position:absolute) so the entering page
+        occupies its correct layout position from frame 1.
 
-        The new page fades/slides in while the old one fades/slides out at the
-        same time. Suspense sits inside motion.main; if the chunk is already
-        cached (guaranteed by preloads in App.tsx) it resolves in the same tick.
+        - Fixes "alternating blank": sync mode stacked both pages vertically,
+          pushing the new page below the viewport every other navigation.
+        - Fixes "blank on lazy load": unlike mode="wait", the new page mounts
+          immediately — no window for Suspense to interrupt the enter animation.
+        - Exiting and entering happen simultaneously (no wait), so chunk cache
+          from App.tsx preloads guarantees instant resolution.
       */}
-      <AnimatePresence>
+      <AnimatePresence mode="popLayout">
         <motion.main
           key={location.pathname}
           initial={{ opacity: 0, y: 16 }}
