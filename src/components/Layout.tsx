@@ -23,24 +23,23 @@ export function Layout({ children }: { children: ReactNode }) {
       <Navigation />
       <ThemeToggle />
       {/*
-        CORRECT order: AnimatePresence → motion.main → Suspense → children
-        
-        AnimatePresence is always alive and always sees motion.main mounting/unmounting.
-        motion.main is keyed by pathname and mounts IMMEDIATELY on route change —
-        it does not wait for the lazy chunk. This lets AnimatePresence do its full
-        exit-then-enter transition without Suspense interrupting it.
-        
-        Suspense sits INSIDE motion.main so the spinner appears inside the already-
-        animating page shell. When the chunk loads content replaces the spinner.
-        No double-click required.
+        AnimatePresence WITHOUT mode="wait" (default = "sync"):
+        Enter and exit happen simultaneously, so the new page mounts immediately
+        on route change. This prevents the blank-page bug where mode="wait" held
+        the old page in place while React.lazy/Suspense delayed the new page's
+        mount — causing AnimatePresence to lose track of the entering motion.main.
+
+        The new page fades/slides in while the old one fades/slides out at the
+        same time. Suspense sits inside motion.main; if the chunk is already
+        cached (guaranteed by preloads in App.tsx) it resolves in the same tick.
       */}
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         <motion.main
           key={location.pathname}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
+          exit={{ opacity: 0, y: -16 }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
           className="flex-grow max-w-4xl w-full mx-auto px-6 pt-24 pb-24"
         >
           <Suspense fallback={<PageLoader />}>
