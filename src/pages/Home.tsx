@@ -64,6 +64,7 @@ export function Home() {
                 caption={`${config.name.split(" ")[0]} ✦`}
                 rotation={-2}
                 className="w-64 sm:w-72"
+                priority
               />
               {/* Responsive "Currently building" indicator for mobile */}
               {/* <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-max bg-[var(--color-cream)] dark:bg-[#2A1F18] border border-[var(--color-gold)]/30 shadow-lg p-3 rounded-xl flex items-center gap-3 z-10">
@@ -122,6 +123,7 @@ export function Home() {
               caption={`${config.name.split(" ")[0]} ✦`}
               rotation={-2}
               className="w-80"
+              priority
             />
 
             {/* Responsive "Currently building" indicator */}

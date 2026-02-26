@@ -7,6 +7,7 @@ interface PolaroidProps {
   rotation?: number;
   className?: string;
   onClick?: () => void;
+  priority?: boolean;
 }
 
 export function Polaroid({
@@ -15,6 +16,7 @@ export function Polaroid({
   rotation = 0,
   className = "",
   onClick,
+  priority = false,
 }: PolaroidProps) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -32,7 +34,8 @@ export function Polaroid({
           src={src}
           alt={caption}
           className="w-full h-full object-cover grayscale-[20%] sepia-[10%] contrast-110"
-          loading="lazy"
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : "auto"}
           referrerPolicy="no-referrer"
         />
       </div>
